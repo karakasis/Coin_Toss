@@ -25,6 +25,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    //koufounakis master programmer
     private Context context = MainActivity.this;
     private ImageView coinGifView;
     private EnumChoice choice;
