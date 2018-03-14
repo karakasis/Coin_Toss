@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/primaryDarkColor"
         >
 
         <LinearLayout
@@ -58,17 +59,37 @@
                     android:text="0"
                     android:textSize="24sp" />
 
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/strikesLayout">
+
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerInParent="true"
-            android:id="@+id/strikesLayout"/>
 
+
+
+
+
+        <FrameLayout
+
+            android:id="@+id/container"
+
+            android:layout_width="fill_parent"
+
+            android:layout_height="fill_parent">
+
+            <include android:id="@+id/notelist" layout="@layout/heads_view" />
+            <include android:id="@+id/notelist" layout="@layout/tails_view" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

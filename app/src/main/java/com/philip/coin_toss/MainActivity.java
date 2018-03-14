@@ -1,7 +1,6 @@
 package com.philip.coin_toss;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.animation.ValueAnimator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,13 +23,8 @@ import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
-    //test lines
 
 
-
-    //test branch
-    private Context context = MainActivity.this;
-    private ImageView coinGifView;
     private EnumChoice choice;
     private EnumChoice result;
     private Random rand=new Random();;
@@ -45,24 +39,31 @@ public class MainActivity extends AppCompatActivity {
     private int highScore=0;
     private ArrayList<String> strikes=new ArrayList<>();
 
-    private Flip3d animator;
-    private ImageView image1;
-    private ImageView image2;
+    private ImageView headsView;
+    private ImageView tailsView;
 
     private boolean isDisplayingHeads = true;
     private EnumChoice prevDisplay = EnumChoice.HEADS;
+
+    ValueAnimator mFlipAnimator;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        setContentView(R.layout.cool_layout);
+        setContentView(R.layout.activity_main);
 
-        image1 = (ImageView) findViewById(R.id.ImageView01);
-        image2 = (ImageView) findViewById(R.id.ImageView02);
-        image2.setVisibility(View.GONE);
+        mFlipAnimator = ValueAnimator.ofFloat(0f, 5f);
+
+        headsView = (ImageView) findViewById(R.id.headsViewXML);
+        tailsView = (ImageView) findViewById(R.id.tailsViewXML);
+
+        mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView));
+        mFlipAnimator.setDuration(18000);
+
+
+        tailsView.setVisibility(View.GONE);
 
         if (savedInstanceState != null){
             score = savedInstanceState.getInt(SCORE_KEY);
@@ -71,10 +72,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "orientation change", Toast.LENGTH_SHORT).show();
             updateScreen();
         }
-
-
-        //coinGifView = (ImageView) findViewById(R.id.gifView);
-        //loadGif(0,0);
     }
 
     @Override
@@ -86,9 +83,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void update(View view){
-        animator = new Flip3d(image1,image2,isDisplayingHeads);
         result = result(rand.nextBoolean());
-        Flip3d.loopRoll = rollNumOfLoops();
+        //rollNumOfLoops();
 
         if (view.getId() == R.id.heads) {
 
@@ -114,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             score = 0;
             strikes.clear();
         }
-        animator.applyRotation(0,90);
+        mFlipAnimator.start();
         updateScreen();
     }
 
@@ -149,25 +145,6 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-    /*
-    private int rollNumOfLoops(){
-        if(result == EnumChoice.HEADS){
-            if(isDisplayingHeads){
-                return 2*(rand.nextInt(3)+1);
-            }
-            else {
-                return 2*(rand.nextInt(3)+1) + 1;
-            }
-        }else if (result == EnumChoice.TAILS){
-            if(isDisplayingHeads){
-                return 2*(rand.nextInt(3)+1) + 1;
-            }else{
-                return 2 * (rand.nextInt(3) + 1);
-            }
-        }
-        return 0;
-    }
-*/
     private void updateScreen(){
         TextView scoreTV = (TextView) findViewById(R.id.score);
         scoreTV.setText(String.valueOf(score));
@@ -184,33 +161,4 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.v("MainActivity", "Update screen was called");
     }
-
-    /*
-    private void loadGif(int previousResult, int result){
-        // 0 = Heads
-        // 1 = Tails
-        DrawableImageViewTarget imageViewTarget = new DrawableImageViewTarget(coinGifView){
-            @Override
-            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                if (resource instanceof GifDrawable) {
-                    GifDrawable gifDrawable = (GifDrawable) resource;
-                    gifDrawable.setLoopCount(1);
-                    // Do things with GIF here.
-                }
-            }
-        };
-
-        if(previousResult == 0 && result == 0){
-            Glide.with(this).asGif().load(R.drawable.h2h).into(imageViewTarget);
-        }else if(previousResult == 0 && result == 1){
-            Glide.with(this).asGif().load(R.drawable.h2t).into(coinGifView);
-        }else if(previousResult == 1 && result == 0){
-            Glide.with(this).asGif().load(R.drawable.t2h).into(coinGifView);
-        }else if(previousResult == 1 && result == 1){
-            Glide.with(this).asGif().load(R.drawable.t2t).into(coinGifView);
-        }
-
-    }
-*/
-
 }

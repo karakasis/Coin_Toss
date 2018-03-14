@@ -7,8 +7,9 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
-        android:id="@+id/ImageView02"
+        android:id="@+id/tailsViewXML"
         android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
         android:src="@drawable/tails"
         >
     </ImageView>

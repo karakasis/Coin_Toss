@@ -13,7 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
@@ -86,12 +85,6 @@
                 android:text="Head"
                 android:textSize="34sp"/>
 
-            </RelativeLayout>
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:background="#607d8b" >
 
             <Button
                 style="?android:attr/buttonBarButtonStyle"
@@ -104,7 +97,6 @@
                 android:layout_alignParentRight="true"
                 android:text="Tails"
                 android:textSize="34sp"/>
-            </RelativeLayout>
         </LinearLayout>
             <FrameLayout
 
@@ -124,5 +116,6 @@
                     android:id="@+id/strikesLayout"/>
 
             </FrameLayout>
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
