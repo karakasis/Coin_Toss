@@ -24,6 +24,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private EnumChoice choice;
     private EnumChoice result;
     private Random rand=new Random();;
