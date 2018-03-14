@@ -10,14 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.gif.GifDrawable;
-import com.bumptech.glide.request.target.DrawableImageViewTarget;
-import com.bumptech.glide.request.target.DrawableThumbnailImageViewTarget;
-import com.bumptech.glide.request.transition.Transition;
-*/
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -45,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isDisplayingHeads = true;
     private EnumChoice prevDisplay = EnumChoice.HEADS;
 
-    ValueAnimator mFlipAnimator;
+    private ValueAnimator mFlipAnimator;
 
 
 
