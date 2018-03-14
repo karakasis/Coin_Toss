@@ -11,4 +11,11 @@
         <item name="android:buttonBarButtonStyle">@color/secondaryColor</item>
     </style>
 
+    <style parent="Theme.AppCompat.Light.DarkActionBar" name="StrikeTApp">
+
+    <!-- Customize your theme here. -->
+    <item name="android:textSize">34sp</item>
+
+    </style>
+
 </resources>
