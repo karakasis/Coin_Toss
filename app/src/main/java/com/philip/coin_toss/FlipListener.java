@@ -28,16 +28,16 @@ public class FlipListener implements ValueAnimator.AnimatorUpdateListener {
             this.headsView.setScaleY(scaleValue);
                 setStateFlipped(false); //HEADS
 
-            System.out.println(value + " " + scaleValue + " " + animValue + " "
-                    + 180 * animValue + " HEADS");
+            //System.out.println(value + " " + scaleValue + " " + animValue + " "
+                  //  + 180 * animValue + " HEADS");
 
         } else {
             this.tailsView.setRotationY(-180 * (1f- animValue));
             this.tailsView.setScaleX(scaleValue);
             this.tailsView.setScaleY(scaleValue);
                 setStateFlipped(true); //TAILS
-            System.out.println(value + " " + scaleValue + " " + animValue + " "
-                    + -180 * (1f- animValue) + " TAILS");
+            //System.out.println(value + " " + scaleValue + " " + animValue + " "
+                   // + -180 * (1f- animValue) + " TAILS");
         }
     }
 

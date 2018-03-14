@@ -38,21 +38,22 @@ public class MainActivity extends AppCompatActivity {
     private EnumChoice prevDisplay = EnumChoice.HEADS;
 
     private ValueAnimator mFlipAnimator;
-
+    private int flips;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        int flips = 7;
-        mFlipAnimator = ValueAnimator.ofFloat(0f, (float) flips);
+
 
         headsView = (ImageView) findViewById(R.id.headsViewXML);
         tailsView = (ImageView) findViewById(R.id.tailsViewXML);
 
+        mFlipAnimator = ValueAnimator.ofFloat(0f, 1f);
         mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
-        mFlipAnimator.setDuration(2000);
+        mFlipAnimator.addListener(new FlipListenerEnd(this));
+        mFlipAnimator.setDuration(2500);
 
 
         tailsView.setVisibility(View.GONE);
@@ -76,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void update(View view){
         result = result(rand.nextBoolean());
-        //rollNumOfLoops();
+        flips = rollNumOfLoops();
+        System.out.println( flips + " Flips");
+
+        mFlipAnimator.setFloatValues(0f, (float) flips);
 
         if (view.getId() == R.id.heads) {
 
@@ -87,23 +91,8 @@ public class MainActivity extends AppCompatActivity {
             choice = EnumChoice.TAILS;
         }
 
-        System.out.println("RESULT: "+result.toString());
-        if(result == choice){
-            //win
-            score++;
-            if(score>highScore){
-                highScore = score;
-
-                Toast.makeText(this, "New High Score !", Toast.LENGTH_SHORT).show();
-            }
-            strikes.add(choice.toString().charAt(0) + "");
-        }else{
-            //lose
-            score = 0;
-            strikes.clear();
-        }
         mFlipAnimator.start();
-        updateScreen();
+
     }
 
     public EnumChoice result(boolean val){
@@ -137,7 +126,8 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-    private void updateScreen(){
+    public void updateScreen(){
+
         TextView scoreTV = (TextView) findViewById(R.id.score);
         scoreTV.setText(String.valueOf(score));
         TextView highScoreTV = (TextView) findViewById(R.id.highScore);
@@ -152,5 +142,23 @@ public class MainActivity extends AppCompatActivity {
             linearLayout.addView(textView);
         }
         Log.v("MainActivity", "Update screen was called");
+    }
+
+    public void makeResult(){
+        System.out.println("RESULT: "+result.toString());
+        if(result == choice){
+            //win
+            score++;
+            if(score>highScore){
+                highScore = score;
+
+                Toast.makeText(this, "New High Score !", Toast.LENGTH_SHORT).show();
+            }
+            strikes.add(choice.toString().charAt(0) + "");
+        }else{
+            //lose
+            score = 0;
+            strikes.clear();
+        }
     }
 }
