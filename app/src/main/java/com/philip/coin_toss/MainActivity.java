@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EnumChoice choice;
     private EnumChoice result;
-    private Random rand=new Random();;
+    private Random rand=new Random();
     public enum EnumChoice {
         HEADS,
         TAILS
@@ -45,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mFlipAnimator = ValueAnimator.ofFloat(0f, 5f);
+        int flips = 7;
+        mFlipAnimator = ValueAnimator.ofFloat(0f, (float) flips);
 
         headsView = (ImageView) findViewById(R.id.headsViewXML);
         tailsView = (ImageView) findViewById(R.id.tailsViewXML);
 
-        mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView));
-        mFlipAnimator.setDuration(18000);
+        mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
+        mFlipAnimator.setDuration(2000);
 
 
         tailsView.setVisibility(View.GONE);
