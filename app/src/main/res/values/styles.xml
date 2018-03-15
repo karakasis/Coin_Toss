@@ -13,8 +13,8 @@
 
     <style parent="Theme.AppCompat.Light.DarkActionBar" name="StrikeTApp">
 
-    <!-- Customize your theme here. -->
-    <item name="android:textSize">34sp</item>
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">34sp</item>
 
     </style>
 
