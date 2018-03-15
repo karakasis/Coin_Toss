@@ -86,12 +86,14 @@ public class MainActivity extends AppCompatActivity {
         System.out.println( flips + " Flips");
 
         mFlipAnimator.setFloatValues(0f, (float) flips);
-        if(isDisplayingHeads){
+        if(prevDisplay == EnumChoice.HEADS){
             mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
-            headsView.setVisibility(View.GONE);
+            tailsView.setVisibility(View.GONE);
+            headsView.setVisibility(View.VISIBLE);
         }else{
             mFlipAnimator.addUpdateListener(new FlipListener(tailsView, headsView, flips));
-            tailsView.setVisibility(View.GONE);
+            headsView.setVisibility(View.GONE);
+            tailsView.setVisibility(View.VISIBLE);
         }
 
 
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return 0;
+        //return (rand.nextInt(5) + 2);
     }
 
     public void updateScreen(){
@@ -151,7 +154,11 @@ public class MainActivity extends AppCompatActivity {
         for(String ch : strikes){
             TextView textView = new TextView(this);
             textView.setText(ch + " ");
-            textView.setTextAppearance(this,R.style.StrikeTApp);
+            if(ch.equals("H")){
+                textView.setTextAppearance(this,R.style.StrikeHApp);
+            }else{
+                textView.setTextAppearance(this,R.style.StrikeTApp);
+            }
             linearLayout.addView(textView);
         }
         Log.v("MainActivity", "Update screen was called");

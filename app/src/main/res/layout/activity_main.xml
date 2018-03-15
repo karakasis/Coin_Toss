@@ -7,11 +7,15 @@
     tools:context="com.philip.coin_toss.MainActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@mipmap/table"
         android:orientation="vertical"
-        android:background="@color/background"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/scores"
@@ -44,8 +48,7 @@
                 android:id="@+id/sc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -69,41 +72,45 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
-            <include android:id="@+id/notelist" layout="@layout/heads_view" />
-            <include android:id="@+id/notelist" layout="@layout/tails_view" />
+            <include
+                android:id="@+id/notelist"
+                layout="@layout/heads_view" />
+
+            <include
+                android:id="@+id/notelist"
+                layout="@layout/tails_view" />
 
         </FrameLayout>
 
         <LinearLayout
+            android:id="@+id/strikesLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/scores"
             android:layout_alignParentRight="true"
-            android:id="@+id/strikesLayout"
-            />
+            android:layout_below="@+id/scores"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" />
 
         <LinearLayout
             android:id="@+id/buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp"
             android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:paddingBottom="8dp">
 
 
             <Button
                 android:id="@+id/heads"
-                android:onClick="update"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="168dp"
                 android:layout_height="88dp"
                 android:layout_weight="1"
+                android:alpha="0.6"
+                android:onClick="update"
                 android:text="Heads"
-                android:textSize="34sp"
-                />
+                android:textSize="34sp" />
 
             <View
                 android:layout_width="0dp"
@@ -112,14 +119,14 @@
 
             <Button
                 android:id="@+id/tails"
-                android:onClick="update"
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="168dp"
                 android:layout_height="88dp"
                 android:layout_weight="1"
+                android:alpha="0.6"
+                android:onClick="update"
                 android:text="Tails"
-                android:textSize="34sp"
-                />
+                android:textSize="34sp" />
 
         </LinearLayout>
 

@@ -5,11 +5,11 @@
     <ImageView
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:id="@+id/headsViewXML"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scaleType="fitCenter"
-        android:src="@drawable/coin_heads"
+        android:src="@mipmap/coin_heads"
         android:scaleX="0.2752368"
         android:scaleY="0.2752368"
         >

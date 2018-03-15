@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
@@ -11,10 +11,19 @@
         <item name="android:buttonBarButtonStyle">@color/secondaryColor</item>
     </style>
 
-    <style parent="Theme.AppCompat.Light.DarkActionBar" name="StrikeTApp">
+    <style parent="Theme.AppCompat.Light.NoActionBar" name="StrikeHApp">
 
         <!-- Customize your theme here. -->
         <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/secondaryColor</item>
+
+    </style>
+
+    <style parent="Theme.AppCompat.Light.NoActionBar" name="StrikeTApp">
+
+        <!-- Customize your theme here. -->
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">@color/secondaryDarkColor</item>
 
     </style>
 
