@@ -10,41 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/primaryDarkColor"
+        android:background="@color/background"
         >
 
         <LinearLayout
+            android:id="@+id/scores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout">
+            android:orientation="vertical">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Score: "
-                    android:textSize="34sp" />
-
-                <TextView
-                    android:id="@+id/score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:paddingRight="8dp"
-                    android:text="0"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -56,42 +35,57 @@
                     android:id="@+id/highScore"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
+                    android:paddingRight="8dp"
                     android:text="0"
                     android:textSize="24sp" />
-
-
             </LinearLayout>
 
-
             <LinearLayout
+                android:id="@+id/sc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:id="@+id/strikesLayout">
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Score:"
+                    android:textSize="34sp" />
+
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="0"
+                    android:textSize="24sp" />
 
             </LinearLayout>
-
         </LinearLayout>
 
-
-
-
-
-
         <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
 
-        android:id="@+id/container"
+            <include android:id="@+id/notelist" layout="@layout/heads_view" />
+            <include android:id="@+id/notelist" layout="@layout/tails_view" />
 
-        android:layout_width="fill_parent"
-
-        android:layout_height="fill_parent">
-
-        <include android:id="@+id/notelist" layout="@layout/heads_view" />
-        <include android:id="@+id/notelist" layout="@layout/tails_view" />
-
-    </FrameLayout>
+        </FrameLayout>
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/scores"
+            android:layout_alignParentRight="true"
+            android:id="@+id/strikesLayout"
+            />
+
+        <LinearLayout
+            android:id="@+id/buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -101,14 +95,15 @@
 
 
             <Button
-                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/heads"
                 android:onClick="update"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="168dp"
                 android:layout_height="88dp"
                 android:layout_weight="1"
-                android:text="Head"
-                android:textSize="34sp"/>
+                android:text="Heads"
+                android:textSize="34sp"
+                />
 
             <View
                 android:layout_width="0dp"
@@ -116,16 +111,18 @@
                 android:layout_weight="1" />
 
             <Button
-                style="?android:attr/buttonBarButtonStyle"
                 android:id="@+id/tails"
                 android:onClick="update"
+                style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="168dp"
                 android:layout_height="88dp"
                 android:layout_weight="1"
                 android:text="Tails"
-                android:textSize="34sp"/>
+                android:textSize="34sp"
+                />
 
         </LinearLayout>
+
 
     </RelativeLayout>
 
