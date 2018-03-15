@@ -38,30 +38,24 @@ public class MainActivity extends AppCompatActivity {
     private EnumChoice prevDisplay = EnumChoice.HEADS;
 
     private ValueAnimator mFlipAnimator;
-    private int flips;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        int flips = 7;
+        mFlipAnimator = ValueAnimator.ofFloat(0f, (float) flips);
 
         headsView = (ImageView) findViewById(R.id.headsViewXML);
         tailsView = (ImageView) findViewById(R.id.tailsViewXML);
 
-        mFlipAnimator = ValueAnimator.ofFloat(0f, 1f);
-        if(isDisplayingHeads){
-            mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
-            tailsView.setVisibility(View.GONE);
-        }else{
-            mFlipAnimator.addUpdateListener(new FlipListener(tailsView, headsView, flips));
-            headsView.setVisibility(View.GONE);
-        }
-        mFlipAnimator.addListener(new FlipListenerEnd(this));
-        mFlipAnimator.setDuration(2500);
+        mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
+        mFlipAnimator.setDuration(2000);
 
 
+        tailsView.setVisibility(View.GONE);
 
         if (savedInstanceState != null){
             score = savedInstanceState.getInt(SCORE_KEY);
@@ -82,18 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void update(View view){
         result = result(rand.nextBoolean());
-        flips = rollNumOfLoops();
-        System.out.println( flips + " Flips");
-
-        mFlipAnimator.setFloatValues(0f, (float) flips);
-        if(isDisplayingHeads){
-            mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
-            headsView.setVisibility(View.GONE);
-        }else{
-            mFlipAnimator.addUpdateListener(new FlipListener(tailsView, headsView, flips));
-            tailsView.setVisibility(View.GONE);
-        }
-
+        //rollNumOfLoops();
 
         if (view.getId() == R.id.heads) {
 
@@ -104,8 +87,23 @@ public class MainActivity extends AppCompatActivity {
             choice = EnumChoice.TAILS;
         }
 
-        mFlipAnimator.start();
+        System.out.println("RESULT: "+result.toString());
+        if(result == choice){
+            //win
+            score++;
+            if(score>highScore){
+                highScore = score;
 
+                Toast.makeText(this, "New High Score !", Toast.LENGTH_SHORT).show();
+            }
+            strikes.add(choice.toString().charAt(0) + "");
+        }else{
+            //lose
+            score = 0;
+            strikes.clear();
+        }
+        mFlipAnimator.start();
+        updateScreen();
     }
 
     public EnumChoice result(boolean val){
@@ -124,23 +122,22 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Previous result was: "+prevDisplay.toString() +". New result should be (HEADS): " + isDisplayingHeads);
         if(result == EnumChoice.HEADS){
             if(prevDisplay == EnumChoice.HEADS){
-                return 2*(rand.nextInt(3) +1 );
+                return 2*(rand.nextInt(3)+1) + 1;
             }
             else if(prevDisplay == EnumChoice.TAILS){
-                return 2*(rand.nextInt(3) +1 ) + 1;
+                return 2*(rand.nextInt(3)+1);
             }
         }else if (result == EnumChoice.TAILS){
             if(prevDisplay == EnumChoice.HEADS){
-                return 2*(rand.nextInt(3) +1 ) + 1;
+                return 2*(rand.nextInt(3)+1);
             }else if(prevDisplay == EnumChoice.TAILS) {
-                return 2 * (rand.nextInt(3) + 1);
+                return 2 * (rand.nextInt(3) + 1) + 1;
             }
         }
         return 0;
     }
 
-    public void updateScreen(){
-
+    private void updateScreen(){
         TextView scoreTV = (TextView) findViewById(R.id.score);
         scoreTV.setText(String.valueOf(score));
         TextView highScoreTV = (TextView) findViewById(R.id.highScore);
@@ -155,23 +152,5 @@ public class MainActivity extends AppCompatActivity {
             linearLayout.addView(textView);
         }
         Log.v("MainActivity", "Update screen was called");
-    }
-
-    public void makeResult(){
-        System.out.println("RESULT: "+result.toString());
-        if(result == choice){
-            //win
-            score++;
-            if(score>highScore){
-                highScore = score;
-
-                Toast.makeText(this, "New High Score !", Toast.LENGTH_SHORT).show();
-            }
-            strikes.add(choice.toString().charAt(0) + "");
-        }else{
-            //lose
-            score = 0;
-            strikes.clear();
-        }
     }
 }
