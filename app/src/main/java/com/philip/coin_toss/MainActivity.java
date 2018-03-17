@@ -1,10 +1,13 @@
 package com.philip.coin_toss;
 
+import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,15 +30,19 @@ public class MainActivity extends AppCompatActivity {
     private static final String SCORE_KEY = "SCORE";
     private static final String HIGHSCORE_KEY = "HIGHSCORE";
     private static final String STRIKES_KEY = "STRIKES";
+    private static final String COIN_FACE_KEY = "COIN_FACE";
     private int score=0;
     private int highScore=0;
     private ArrayList<String> strikes=new ArrayList<>();
 
-    private ImageView headsView;
-    private ImageView tailsView;
+    public ImageView headsView;
+    public ImageView tailsView;
+    public Button headsButton;
+    public Button tailsButton;
 
     private boolean isDisplayingHeads = true;
     private EnumChoice prevDisplay = EnumChoice.HEADS;
+    private boolean isPrevDisplayHeads;
 
     private ValueAnimator mFlipAnimator;
     private int flips;
@@ -46,27 +53,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         headsView = (ImageView) findViewById(R.id.headsViewXML);
         tailsView = (ImageView) findViewById(R.id.tailsViewXML);
+        headsButton = (Button) findViewById(R.id.heads);
+        tailsButton = (Button) findViewById(R.id.tails);
+
 
         mFlipAnimator = ValueAnimator.ofFloat(0f, 1f);
-        if(isDisplayingHeads){
-            mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
-            tailsView.setVisibility(View.GONE);
-        }else{
-            mFlipAnimator.addUpdateListener(new FlipListener(tailsView, headsView, flips));
-            headsView.setVisibility(View.GONE);
-        }
-        mFlipAnimator.addListener(new FlipListenerEnd(this));
+        mFlipAnimator.addListener(new FlipListenerEnd(this ));
         mFlipAnimator.setDuration(2500);
 
+        if (savedInstanceState != null) {
 
-
-        if (savedInstanceState != null){
             score = savedInstanceState.getInt(SCORE_KEY);
             highScore = savedInstanceState.getInt(HIGHSCORE_KEY);
             strikes = new ArrayList<>(savedInstanceState.getStringArrayList(STRIKES_KEY));
+            isPrevDisplayHeads = savedInstanceState.getBoolean(COIN_FACE_KEY);
+
+            if (isPrevDisplayHeads) {
+                prevDisplay = EnumChoice.HEADS;
+                isPrevDisplayHeads = true;
+                mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
+                tailsView.setVisibility(View.GONE);
+                headsView.setVisibility(View.VISIBLE);
+            } else {
+                prevDisplay = EnumChoice.TAILS;
+                isPrevDisplayHeads = false;
+                mFlipAnimator.addUpdateListener(new FlipListener(tailsView, headsView, flips));
+                headsView.setVisibility(View.GONE);
+                tailsView.setVisibility(View.VISIBLE);
+            }
+
+
             Toast.makeText(this, "orientation change", Toast.LENGTH_SHORT).show();
             updateScreen();
         }
@@ -78,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         bundle.putInt(SCORE_KEY,score);
         bundle.putInt(HIGHSCORE_KEY,highScore);
         bundle.putStringArrayList(STRIKES_KEY,strikes);
+        bundle.putBoolean(COIN_FACE_KEY,isDisplayingHeads);
     }
 
     public void update(View view){
@@ -111,8 +130,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public EnumChoice result(boolean val){
-        if(isDisplayingHeads) prevDisplay = EnumChoice.HEADS;
-        else prevDisplay = EnumChoice.TAILS;
+        if(isDisplayingHeads){
+            prevDisplay = EnumChoice.HEADS;
+            isPrevDisplayHeads = true;
+        }
+        else{
+            prevDisplay = EnumChoice.TAILS;
+            isPrevDisplayHeads = false;
+        }
         if(val){
             isDisplayingHeads = true;
             return EnumChoice.HEADS;
