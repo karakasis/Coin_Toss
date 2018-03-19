@@ -12,8 +12,8 @@ public class FlipListener implements ValueAnimator.AnimatorUpdateListener {
     public FlipListener(final View front, final View back , final int flips) {
         this.frontView = front;
         this.backView = back;
-        this.backView.setVisibility(View.GONE);
         this.flips = flips;
+        backView.setVisibility(View.GONE);
     }
 
     @Override
@@ -26,18 +26,12 @@ public class FlipListener implements ValueAnimator.AnimatorUpdateListener {
             this.frontView.setRotationY(180 * animValue);
             this.frontView.setScaleX(scaleValue);
             this.frontView.setScaleY(scaleValue);
-                setStateFlipped(false); //HEADS
-
-            //System.out.println(value + " " + scaleValue + " " + animValue + " "
-                  //  + 180 * animValue + " HEADS");
-
+                setStateFlipped(false); //front view visible
         } else {
             this.backView.setRotationY(-180 * (1f- animValue));
             this.backView.setScaleX(scaleValue);
             this.backView.setScaleY(scaleValue);
-                setStateFlipped(true); //TAILS
-            //System.out.println(value + " " + scaleValue + " " + animValue + " "
-                   // + -180 * (1f- animValue) + " TAILS");
+                setStateFlipped(true); //back view visible
         }
     }
 

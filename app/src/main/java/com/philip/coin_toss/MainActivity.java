@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,16 +22,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     private EnumChoice choice;
-    private EnumChoice result;
+    private EnumChoice result = EnumChoice.HEADS; // wont mess with the app results
     private Random rand=new Random();
-    public enum EnumChoice {
+    private enum EnumChoice {
         HEADS,
         TAILS
     }
     private static final String SCORE_KEY = "SCORE";
     private static final String HIGHSCORE_KEY = "HIGHSCORE";
     private static final String STRIKES_KEY = "STRIKES";
-    private static final String COIN_FACE_KEY = "COIN_FACE";
+    private static final String WAS_HEADS_KEY = "WAS_HEADS";
+    private static final String IS_HEADS_KEY = "IS_HEADS";
     private int score=0;
     private int highScore=0;
     private ArrayList<String> strikes=new ArrayList<>();
@@ -40,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
     public Button headsButton;
     public Button tailsButton;
 
+    private boolean wasDisplayingHeads = true;
     private boolean isDisplayingHeads = true;
-    private EnumChoice prevDisplay = EnumChoice.HEADS;
-    private boolean isPrevDisplayHeads;
 
     private ValueAnimator mFlipAnimator;
-    private int flips;
 
 
     @Override
@@ -58,34 +58,31 @@ public class MainActivity extends AppCompatActivity {
         headsButton = (Button) findViewById(R.id.heads);
         tailsButton = (Button) findViewById(R.id.tails);
 
-
+        //First run will initialize animation
         mFlipAnimator = ValueAnimator.ofFloat(0f, 1f);
         mFlipAnimator.addListener(new FlipListenerEnd(this ));
         mFlipAnimator.setDuration(2500);
 
         if (savedInstanceState != null) {
+            Toast.makeText(this, "orientation change", Toast.LENGTH_SHORT).show();
 
+            //load bundle
             score = savedInstanceState.getInt(SCORE_KEY);
             highScore = savedInstanceState.getInt(HIGHSCORE_KEY);
             strikes = new ArrayList<>(savedInstanceState.getStringArrayList(STRIKES_KEY));
-            isPrevDisplayHeads = savedInstanceState.getBoolean(COIN_FACE_KEY);
+            isDisplayingHeads = savedInstanceState.getBoolean(IS_HEADS_KEY);
+            wasDisplayingHeads = savedInstanceState.getBoolean(WAS_HEADS_KEY);
 
-            if (isPrevDisplayHeads) {
-                prevDisplay = EnumChoice.HEADS;
-                isPrevDisplayHeads = true;
-                mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
-                tailsView.setVisibility(View.GONE);
+            if(isDisplayingHeads){
+                result = EnumChoice.HEADS;
                 headsView.setVisibility(View.VISIBLE);
-            } else {
-                prevDisplay = EnumChoice.TAILS;
-                isPrevDisplayHeads = false;
-                mFlipAnimator.addUpdateListener(new FlipListener(tailsView, headsView, flips));
-                headsView.setVisibility(View.GONE);
+                tailsView.setVisibility(View.GONE);
+            }else{
+                result = EnumChoice.TAILS;
                 tailsView.setVisibility(View.VISIBLE);
+                headsView.setVisibility(View.GONE);
             }
 
-
-            Toast.makeText(this, "orientation change", Toast.LENGTH_SHORT).show();
             updateScreen();
         }
     }
@@ -96,48 +93,37 @@ public class MainActivity extends AppCompatActivity {
         bundle.putInt(SCORE_KEY,score);
         bundle.putInt(HIGHSCORE_KEY,highScore);
         bundle.putStringArrayList(STRIKES_KEY,strikes);
-        bundle.putBoolean(COIN_FACE_KEY,isDisplayingHeads);
+        bundle.putBoolean(WAS_HEADS_KEY,wasDisplayingHeads);
+        bundle.putBoolean(IS_HEADS_KEY,isDisplayingHeads);
     }
 
     public void update(View view){
         result = result(rand.nextBoolean());
-        flips = rollNumOfLoops();
-        System.out.println( flips + " Flips");
 
-        mFlipAnimator.setFloatValues(0f, (float) flips);
-        if(prevDisplay == EnumChoice.HEADS){
-            mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
-            tailsView.setVisibility(View.GONE);
-            headsView.setVisibility(View.VISIBLE);
-        }else{
-            mFlipAnimator.addUpdateListener(new FlipListener(tailsView, headsView, flips));
-            headsView.setVisibility(View.GONE);
-            tailsView.setVisibility(View.VISIBLE);
-        }
+        setupAnimation(randomFlips());
 
-
+        //Heads button clicked
         if (view.getId() == R.id.heads) {
 
             choice = EnumChoice.HEADS;
         }
+        //or tails button clicked
         else if (view.getId() == R.id.tails) {
 
             choice = EnumChoice.TAILS;
         }
-
+        //Begins the coin animation
         mFlipAnimator.start();
-
     }
 
-    public EnumChoice result(boolean val){
-        if(isDisplayingHeads){
-            prevDisplay = EnumChoice.HEADS;
-            isPrevDisplayHeads = true;
+    private EnumChoice result(boolean val){
+        if(result == EnumChoice.HEADS) // previous roll
+        {
+            wasDisplayingHeads = true;
+        }else{
+            wasDisplayingHeads = false;
         }
-        else{
-            prevDisplay = EnumChoice.TAILS;
-            isPrevDisplayHeads = false;
-        }
+
         if(val){
             isDisplayingHeads = true;
             return EnumChoice.HEADS;
@@ -147,27 +133,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private int rollNumOfLoops(){
-        System.out.println("Previous result was: "+prevDisplay.toString() +". New result should be (HEADS): " + isDisplayingHeads);
+    private int randomFlips(){
         if(result == EnumChoice.HEADS){
-            if(prevDisplay == EnumChoice.HEADS){
+            if(wasDisplayingHeads){
+                // result = HEADS , previous result = HEADS , saved result = HEADS
                 return 2*(rand.nextInt(3) +1 );
             }
-            else if(prevDisplay == EnumChoice.TAILS){
+            else{
+                // result = HEADS , previous result = TAILS , saved result = HEADS
                 return 2*(rand.nextInt(3) +1 ) + 1;
             }
         }else if (result == EnumChoice.TAILS){
-            if(prevDisplay == EnumChoice.HEADS){
+            if(wasDisplayingHeads){
+                // result = TAILS , previous result = HEADS , saved result = TAILS
                 return 2*(rand.nextInt(3) +1 ) + 1;
-            }else if(prevDisplay == EnumChoice.TAILS) {
+            }else{
+                // result = TAILS , previous result = TAILS , saved result = TAILS
                 return 2 * (rand.nextInt(3) + 1);
             }
         }
-        return 0;
-        //return (rand.nextInt(5) + 2);
+        return 0;//possible bug
     }
 
-    public void updateScreen(){
+    private void updateScreen(){
 
         TextView scoreTV = (TextView) findViewById(R.id.score);
         scoreTV.setText(String.valueOf(score));
@@ -190,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void makeResult(){
-        System.out.println("RESULT: "+result.toString());
+        
         if(result == choice){
             //win
             score++;
@@ -204,6 +192,17 @@ public class MainActivity extends AppCompatActivity {
             //lose
             score = 0;
             strikes.clear();
+        }
+        updateScreen();
+    }
+
+    private void setupAnimation(int flips){
+        mFlipAnimator.setFloatValues(0f, (float) flips);
+
+        if(wasDisplayingHeads){
+            mFlipAnimator.addUpdateListener(new FlipListener(headsView, tailsView, flips));
+        }else{
+            mFlipAnimator.addUpdateListener(new FlipListener(tailsView, headsView, flips));
         }
     }
 }

@@ -2,7 +2,11 @@ package com.philip.coin_toss;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.pm.ActivityInfo;
+import android.view.View;
 import android.widget.Button;
+
+import java.util.concurrent.locks.Lock;
 
 /**
  * Created by Xrhstos on 3/15/2018.
@@ -22,6 +26,7 @@ public class FlipListenerEnd implements ValueAnimator.AnimatorListener {
 
     @Override
     public void onAnimationStart(Animator animator) {
+        LockActivityOrientation.lockActivityOrientation(parent);
         butA.setEnabled(false);
         butB.setEnabled(false);
 
@@ -31,9 +36,8 @@ public class FlipListenerEnd implements ValueAnimator.AnimatorListener {
 
     @Override
     public void onAnimationEnd(Animator animator) {
-        System.out.println("End animation");
+        parent.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         parent.makeResult();
-        parent.updateScreen();
         butA.setEnabled(true);
         butB.setEnabled(true);
 

@@ -74,11 +74,13 @@
 
             <include
                 android:id="@+id/notelist"
-                layout="@layout/heads_view" />
+                layout="@layout/tails_view" />
 
             <include
                 android:id="@+id/notelist"
-                layout="@layout/tails_view" />
+                layout="@layout/heads_view" />
+
+
 
         </FrameLayout>
 
