@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EnumChoice choice;
     private EnumChoice result = EnumChoice.HEADS; // wont mess with the app results
+    private boolean newHighscore = false;
     private Random rand=new Random();
     private enum EnumChoice {
         HEADS,
@@ -64,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
         mFlipAnimator.setDuration(2500);
 
         if (savedInstanceState != null) {
-            Toast.makeText(this, "orientation change", Toast.LENGTH_SHORT).show();
-
             //load bundle
             score = savedInstanceState.getInt(SCORE_KEY);
             highScore = savedInstanceState.getInt(HIGHSCORE_KEY);
@@ -166,10 +165,11 @@ public class MainActivity extends AppCompatActivity {
         linearLayout.removeAllViewsInLayout();
         for(String ch : strikes){
             TextView textView = new TextView(this);
-            textView.setText(ch + " ");
             if(ch.equals("H")){
+                textView.setText(R.string.strikesHeads);
                 textView.setTextAppearance(this,R.style.StrikeHApp);
             }else{
+                textView.setText(R.string.strikesTails);
                 textView.setTextAppearance(this,R.style.StrikeTApp);
             }
             linearLayout.addView(textView);
@@ -184,14 +184,17 @@ public class MainActivity extends AppCompatActivity {
             score++;
             if(score>highScore){
                 highScore = score;
-
-                Toast.makeText(this, "New High Score !", Toast.LENGTH_SHORT).show();
+                newHighscore = true;
             }
             strikes.add(choice.toString().charAt(0) + "");
         }else{
             //lose
             score = 0;
             strikes.clear();
+            if(newHighscore){
+                Toast.makeText(this,R.string.highScoreToast, Toast.LENGTH_SHORT).show();
+                newHighscore = false;
+            }
         }
         updateScreen();
     }

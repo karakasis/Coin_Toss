@@ -32,8 +32,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highscore:"
-                    android:textSize="34sp" />
+                    android:text="@string/highScore"
+                    android:textSize="@dimen/scoreLabels_textSize" />
 
                 <TextView
                     android:id="@+id/highScore"
@@ -41,7 +41,7 @@
                     android:layout_height="32dp"
                     android:paddingRight="8dp"
                     android:text="0"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/scoreValues_textSize" />
             </LinearLayout>
 
             <LinearLayout
@@ -53,15 +53,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Score:"
-                    android:textSize="34sp" />
+                    android:text="@string/score"
+                    android:textSize="@dimen/scoreLabels_textSize" />
 
                 <TextView
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
+                    android:paddingRight="8dp"
                     android:text="0"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/scoreValues_textSize" />
 
             </LinearLayout>
         </LinearLayout>
@@ -111,8 +112,8 @@
                 android:layout_weight="1"
                 android:alpha="0.6"
                 android:onClick="update"
-                android:text="Heads"
-                android:textSize="34sp" />
+                android:text="@string/heads"
+                android:textSize="@dimen/button_textSize" />
 
             <View
                 android:layout_width="0dp"
@@ -127,8 +128,8 @@
                 android:layout_weight="1"
                 android:alpha="0.6"
                 android:onClick="update"
-                android:text="Tails"
-                android:textSize="34sp" />
+                android:text="@string/tails"
+                android:textSize="@dimen/button_textSize"/>
 
         </LinearLayout>
 

@@ -35,6 +35,8 @@
 
     <item name="android:textColor">@color/secondaryColor</item>
 
+    <item name="android:text">@string/strikesHeads</item>
+
 </style>
 
 
@@ -46,6 +48,8 @@
     <item name="android:textSize">34sp</item>
 
     <item name="android:textColor">@color/primaryTextColor</item>
+
+    <item name="android:text">@string/strikesTails</item>
 
 </style>
 
