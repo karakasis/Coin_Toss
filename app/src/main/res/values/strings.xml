@@ -1,0 +1,10 @@
+<resources xml:space="preserve">
+    <string name="app_name">Coin Toss</string>
+    <string name="heads">HEADS</string>
+    <string name="tails">TAILS</string>
+    <string name="score">Score:&#160;</string>
+    <string name="highScore">High Score:&#160;</string>
+    <string name="strikesHeads">H&#160;</string>
+    <string name="strikesTails">T&#160;</string>
+    <string name="highScoreToast">New high Score!</string>
+</resources>

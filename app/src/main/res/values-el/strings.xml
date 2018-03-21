@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Coin Toss</string>
+    <string name="heads">ΚΟΡΩΝΑ</string>
+    <string name="tails">ΓΡΑΜΜΑΤΑ</string>
+    <string name="score">Score:&#160;</string>
+    <string name="highScore">Υψηλότερο Score:&#160;</string>
+    <string name="strikesHeads">Κ&#160;</string>
+    <string name="strikesTails">Γ&#160;</string>
+    <string name="highScoreToast">Νέο Score!</string>
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+    <resources>
+
+    <!-- Base application theme. -->
+
+
+
+    -<style parent="Theme.AppCompat.Light.NoActionBar" name="AppTheme">
+
+    <!-- Customize your theme here. -->
+
+
+    <item name="colorPrimary">@color/primaryColor</item>
+
+    <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+
+    <item name="colorAccent">@color/primaryLightColor</item>
+
+    <item name="android:textColor">@color/primaryTextColor</item>
+
+    <item name="colorButtonNormal">@color/secondaryColor</item>
+
+    <item name="android:buttonBarButtonStyle">@color/secondaryColor</item>
+
+</style>
+
+
+    <style parent="Theme.AppCompat.Light.NoActionBar" name="StrikeHApp">
+
+    <!-- Customize your theme here. -->
+
+
+    <item name="android:textSize">@dimen/strikes_textSize</item>
+
+    <item name="android:textColor">@color/secondaryColor</item>
+
+    <item name="android:text">@string/strikesHeads</item>
+
+</style>
+
+
+    <style parent="Theme.AppCompat.Light.NoActionBar" name="StrikeTApp">
+
+    <!-- Customize your theme here. -->
+
+
+    <item name="android:textSize">@dimen/strikes_textSize</item>
+
+    <item name="android:textColor">@color/primaryTextColor</item>
+
+    <item name="android:text">@string/strikesTails</item>
+
+</style>
+
+</resources>
