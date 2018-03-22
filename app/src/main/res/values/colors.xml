@@ -30,4 +30,6 @@
 
     <color name="backgroundScores">#adfcd93f</color>
 
+    <color name="devBox">#b71c1c</color>
+
 </resources>

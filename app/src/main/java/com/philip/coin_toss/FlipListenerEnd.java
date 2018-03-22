@@ -26,6 +26,9 @@ class FlipListenerEnd implements ValueAnimator.AnimatorListener {
         LockActivityOrientation.lockActivityOrientation(parent);
         butA.setEnabled(false);
         butB.setEnabled(false);
+
+        //parent.headsView.setLayerType(parent.headsView.LAYER_TYPE_HARDWARE, null);
+        //parent.tailsView.setLayerType(parent.tailsView.LAYER_TYPE_HARDWARE, null);
     }
 
     @Override
@@ -40,6 +43,9 @@ class FlipListenerEnd implements ValueAnimator.AnimatorListener {
         parent.makeResult();
         butA.setEnabled(true);
         butB.setEnabled(true);
+
+        //parent.headsView.setLayerType(parent.headsView.LAYER_TYPE_NONE, null);
+        //parent.tailsView.setLayerType(parent.tailsView.LAYER_TYPE_NONE, null);
     }
 
     @Override
