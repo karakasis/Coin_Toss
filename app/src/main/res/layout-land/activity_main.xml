@@ -18,7 +18,22 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
+    <FrameLayout
+      android:id="@+id/container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true">
 
+      <include
+        android:id="@+id/notelist"
+        layout="@layout/tails_view"/>
+
+      <include
+        android:id="@+id/notelist"
+        layout="@layout/heads_view"/>
+
+
+    </FrameLayout>
 
     <RelativeLayout
       android:id="@+id/mainContainer"
@@ -60,9 +75,10 @@
 
         <LinearLayout
           android:id="@+id/hsc"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignParentTop="true"
+          android:layout_alignParentLeft="true"
           android:orientation="horizontal">
 
           <TextView
@@ -79,46 +95,32 @@
             android:text="0"
             android:textSize="@dimen/highScoreValue_textSize"/>
         </LinearLayout>
-
-      </RelativeLayout>
-      <HorizontalScrollView
-        android:id="@+id/strikesScrollView"
-        android:layout_width="match_parent"
-        android:layout_marginTop="-4dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/scores"
-        android:orientation="horizontal"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        android:measureAllChildren="false"
-        android:background="@color/secondaryTextColor"
-        >
-        <LinearLayout
-          android:id="@+id/strikesLayout"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
+        <HorizontalScrollView
+          android:id="@+id/strikesScrollView"
+          android:layout_width="match_parent"
+          android:layout_marginLeft="5dp"
+          android:layout_marginRight="5dp"
+          android:layout_height="40dp"
+          android:layout_alignParentRight="true"
+          android:layout_toRightOf="@id/hsc"
+          android:orientation="horizontal"
+          android:fillViewport="true"
+          android:scrollbars="none"
+          android:measureAllChildren="false"
+          android:background="@color/secondaryTextColor"
+          >
+          <LinearLayout
+            android:id="@+id/strikesLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
 
           </LinearLayout>
-      </HorizontalScrollView>
-      <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/buttons"
-        android:layout_below="@id/scores">
+        </HorizontalScrollView>
 
-        <include
-          android:id="@+id/notelist"
-          layout="@layout/tails_view"/>
+      </RelativeLayout>
 
-        <include
-          android:id="@+id/notelist"
-          layout="@layout/heads_view"/>
-
-
-      </FrameLayout>
       <LinearLayout
         android:id="@+id/comboBoxes"
         android:layout_width="wrap_content"
@@ -167,7 +169,6 @@
             android:onClick="disScaleFlipMode"
             android:text="@string/disScaleFlip_mode"/>
         </LinearLayout>
-
 
       </LinearLayout>
       <LinearLayout

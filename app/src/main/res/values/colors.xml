@@ -8,7 +8,7 @@
 
     <color name="buttonTextColor">#263238</color>
 
-    <color name="primaryLightColor">#cfcfcf</color>
+    <color name="primaryLightColor">#96cfcfcf</color>
 
     <color name="primaryDarkColor">#707070</color>
 
@@ -20,7 +20,7 @@
 
     <color name="primaryTextColor">#263238</color>
 
-    <color name="secondaryTextColor">#263238</color>
+    <color name="secondaryTextColor">#a0263238</color>
 
     <color name="background">#96d7d0</color>
 

@@ -32,8 +32,9 @@
 
     <!-- Customize your theme here. -->
 
+    <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
 
-    <item name="android:textSize">34sp</item>
+    <item name="android:textSize">@dimen/strikes_textSize</item>
 
     <item name="android:textColor">@color/secondaryColor</item>
 
@@ -46,8 +47,9 @@
 
     <!-- Customize your theme here. -->
 
+    <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
 
-    <item name="android:textSize">34sp</item>
+    <item name="android:textSize">@dimen/strikes_textSize</item>
 
     <item name="android:textColor">@color/primaryTextColor</item>
 

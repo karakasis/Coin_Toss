@@ -7,4 +7,10 @@
     <string name="strikesHeads">Κ&#160;</string>
     <string name="strikesTails">Γ&#160;</string>
     <string name="highScoreToast">Νέο Score!</string>
+  <string name="dev_mode">dev</string>
+    <string name="cheat_mode">cheat</string>
+    <string name="plusFlip_mode">plusFlip</string>
+    <string name="altFlip_mode">altFlip</string>
+  <string name="disFlip_mode">disFlip</string>
+  <string name="disScaleFlip_mode">disScaleFlip</string>
 </resources>
