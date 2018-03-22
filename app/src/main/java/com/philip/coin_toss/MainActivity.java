@@ -355,30 +355,34 @@ public class MainActivity extends AppCompatActivity {
     if (result == EnumChoice.HEADS) {
       if (wasDisplayingHeads) {
         // result = HEADS , previous result = HEADS , saved result = HEADS
-        if(MainActivity.disableScaleFlipEffect)
-        return 2 * (rand.nextInt(3) + 1);
-        else
-        return 2;
+        if (MainActivity.disableScaleFlipEffect) {
+          return 2 * (rand.nextInt(3) + 1);
+        } else {
+          return 2;
+        }
       } else {
         // result = HEADS , previous result = TAILS , saved result = HEADS
-        if(MainActivity.disableScaleFlipEffect)
-        return 2 * (rand.nextInt(3) + 1) + 1;
-        else
-        return swapFlips;
+        if (MainActivity.disableScaleFlipEffect) {
+          return 2 * (rand.nextInt(3) + 1) + 1;
+        } else {
+          return swapFlips;
+        }
       }
     } else if (result == EnumChoice.TAILS) {
       if (wasDisplayingHeads) {
         // result = TAILS , previous result = HEADS , saved result = TAILS
-        if(MainActivity.disableScaleFlipEffect)
-        return 2 * (rand.nextInt(3) + 1) + 1;
-        else
-        return swapFlips;
+        if (MainActivity.disableScaleFlipEffect) {
+          return 2 * (rand.nextInt(3) + 1) + 1;
+        } else {
+          return swapFlips;
+        }
       } else {
         // result = TAILS , previous result = TAILS , saved result = TAILS
-        if(MainActivity.disableScaleFlipEffect)
-        return 2 * (rand.nextInt(3) + 1);
-        else
-        return 2;
+        if (MainActivity.disableScaleFlipEffect) {
+          return 2 * (rand.nextInt(3) + 1);
+        } else {
+          return 2;
+        }
       }
     }
     return 0;//possible bug
@@ -397,51 +401,56 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.strikesLayout);
 
     linearLayout.removeAllViewsInLayout();
-    if (strikes.size() == 1) {
-      //play animation
-      ImageView image = new ImageView(this);
-      image.setScaleType(ScaleType.CENTER);
-      image.setAdjustViewBounds(true);
-      if (strikes.get(0).equals("H")) {
-        image.setImageDrawable(getResources().getDrawable(R.drawable.heads));
-      } else {
-        image.setImageDrawable(getResources().getDrawable(R.drawable.tails));
-      }
-      linearLayout.addView(image);
-
-      TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f,
-          0.0f);
-      r2l.setDuration(650);
-      r2l.setFillAfter(true);
-      image.startAnimation(r2l);
-    } else {
-      for (int i = 0; i <= strikes.size() - 2; i++) {
+    if (strikes.size() > 0) {
+      if (strikes.size() == 1) {
+        //play animation
         ImageView image = new ImageView(this);
         image.setScaleType(ScaleType.CENTER);
         image.setAdjustViewBounds(true);
-        if (strikes.get(i).equals("H")) {
+        if (strikes.get(0).equals("H")) {
           image.setImageDrawable(getResources().getDrawable(R.drawable.heads));
         } else {
           image.setImageDrawable(getResources().getDrawable(R.drawable.tails));
         }
         linearLayout.addView(image);
-      }
-      ImageView image = new ImageView(this);
-      image.setScaleType(ScaleType.CENTER);
-      image.setAdjustViewBounds(true);
-      if (strikes.get(strikes.size() - 1).equals("H")) {
-        image.setImageDrawable(getResources().getDrawable(R.drawable.heads));
+
+        TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f,
+            0.0f);
+        r2l.setDuration(650);
+        r2l.setFillAfter(true);
+        image.startAnimation(r2l);
       } else {
-        image.setImageDrawable(getResources().getDrawable(R.drawable.tails));
+        for (int i = 0; i <= strikes.size() - 2; i++) {
+          ImageView image = new ImageView(this);
+          image.setScaleType(ScaleType.CENTER);
+          image.setAdjustViewBounds(true);
+          if (strikes.get(i).equals("H")) {
+            image.setImageDrawable(getResources().getDrawable(R.drawable.heads));
+          } else {
+            image.setImageDrawable(getResources().getDrawable(R.drawable.tails));
+          }
+          linearLayout.addView(image);
+        }
+        ImageView image = new ImageView(this);
+        image.setScaleType(ScaleType.CENTER);
+        image.setAdjustViewBounds(true);
+        if (strikes.get(strikes.size() - 1).equals("H")) {
+          image.setImageDrawable(getResources().getDrawable(R.drawable.heads));
+        } else {
+          image.setImageDrawable(getResources().getDrawable(R.drawable.tails));
+        }
+        linearLayout.addView(image);
+        //play animation
+        TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f,
+            0.0f);
+        r2l.setDuration(650);
+        r2l.setFillAfter(true);
+        image.startAnimation(r2l);
       }
-      linearLayout.addView(image);
-      //play animation
-      TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f,
-          0.0f);
-      r2l.setDuration(650);
-      r2l.setFillAfter(true);
-      image.startAnimation(r2l);
+    }else{
+      linearLayout.removeAllViews();
     }
+
     Log.v("MainActivity", "Update screen was called");
   }
 

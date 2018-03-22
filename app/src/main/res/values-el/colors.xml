@@ -20,8 +20,9 @@
 
     <color name="primaryTextColor">#263238</color>
 
-    <color name="secondaryTextColor">#bcaaa4</color>
+    <color name="secondaryTextColor">#a0263238</color>
 
     <color name="background">#9ed1cb</color>
 
+    <color name="backgroundScores">#adfcd93f</color>
 </resources>

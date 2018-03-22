@@ -3,7 +3,7 @@
     <dimen name="button_textSize">28sp</dimen>
     <dimen name="highScoreLabel_textSize">18sp</dimen>
     <dimen name="highScoreValue_textSize">22sp</dimen>
-    <dimen name="scoreLabel_textSize">40sp</dimen>
-    <dimen name="scoreValue_textSize">44sp</dimen>
+    <dimen name="scoreLabel_textSize">38sp</dimen>
+    <dimen name="scoreValue_textSize">42sp</dimen>
     <dimen name="strikes_textSize">34sp</dimen>
 </resources>
