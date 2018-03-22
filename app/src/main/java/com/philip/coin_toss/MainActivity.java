@@ -3,8 +3,12 @@ package com.philip.coin_toss;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.media.Image;
+import android.media.MediaPlayer;
+import android.os.CountDownTimer;
+import android.support.animation.FlingAnimation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -16,6 +20,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
@@ -28,8 +33,20 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+  private ArrayList<Toast> toastDatabase = new ArrayList<>();
+
+  private void killAllToast() {
+    for (Toast t : toastDatabase) {
+      if (t != null) {
+        t.cancel();
+      }
+    }
+    toastDatabase.clear();
+  }
+
   //dev
   private boolean firstExecution = true;
+  private boolean devExec = true;
   private boolean devActive = false;
   private boolean cheatActive = false;
   private boolean cheatResult;
@@ -86,8 +103,35 @@ public class MainActivity extends AppCompatActivity {
   private ValueAnimator mFlipAnimator;
   private ValueAnimator scaleAnimator;
 
+  private MediaPlayer coinSound;
+  private MediaPlayer scoreSound;
+  private MediaPlayer highScoreSound;
+  private boolean soundEnabled = true;
+  private View speakerView;
 
   public void devMode(View view) {
+    if (devBox.isChecked() && devExec && view != null) {
+      devExec = false;
+      //thanks to https://stackoverflow.com/a/7173248/9301923
+      final Toast tag = Toast.makeText(getBaseContext(),
+          R.string.devMode
+          , Toast.LENGTH_SHORT);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
+
+      new CountDownTimer(16000, 1000) {
+
+        public void onTick(long millisUntilFinished) {
+          tag.show();
+        }
+
+        public void onFinish() {
+          tag.show();
+        }
+
+      }.start();
+    }
     if (devBox.isChecked()) {
       devActive = true;
       cheatBox.setVisibility(View.VISIBLE);
@@ -130,12 +174,15 @@ public class MainActivity extends AppCompatActivity {
     cheatActive = cheatBox.isChecked();
     if (cheatActive && view != null) {
 
-      Toast.makeText(this, "Correct choice"
-          + " will now be displayed with a RED border", Toast.LENGTH_LONG).show();
+      Toast tag = Toast.makeText(this, R.string.cheatOn, Toast.LENGTH_LONG);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
     } else if (!cheatActive && view != null) {
-
-      Toast.makeText(this, "Cheat mode"
-          + " disabled. Borders are default color", Toast.LENGTH_LONG).show();
+      Toast tag = Toast.makeText(this, R.string.cheatOff, Toast.LENGTH_LONG);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
     }
     if (cheatActive) {
       showCheatResult();
@@ -166,12 +213,16 @@ public class MainActivity extends AppCompatActivity {
     plusFlips = plusFlipBox.isChecked();
     if (plusFlips && view != null) {
       swapFlips = 3;
-      Toast.makeText(this, "Swapping sides will"
-          + " now be animated with 3 flips", Toast.LENGTH_LONG).show();
+      Toast tag = Toast.makeText(this, R.string.plusFlipOn, Toast.LENGTH_LONG);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
     } else if (!plusFlips && view != null) {
       swapFlips = 1;
-      Toast.makeText(this, "Swapping sides will"
-          + " now be animated with 1 flip", Toast.LENGTH_LONG).show();
+      Toast tag = Toast.makeText(this, R.string.plusFlipOff, Toast.LENGTH_LONG);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
     }
     if (plusFlips && view == null) {
       swapFlips = 3;
@@ -183,22 +234,30 @@ public class MainActivity extends AppCompatActivity {
   public void altFlipMode(View view) {
     MainActivity.alternateFlipEffect = altFlipBox.isChecked();
     if (MainActivity.alternateFlipEffect && view != null) {
-      Toast.makeText(this, "The coin will now"
-          + " flip with modified animation (experimental)", Toast.LENGTH_LONG).show();
+      Toast tag = Toast.makeText(this,R.string.altFlipOn , Toast.LENGTH_LONG);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
     } else if (!MainActivity.alternateFlipEffect && view != null) {
-      Toast.makeText(this, "The coin will now"
-          + " flip with default animation", Toast.LENGTH_LONG).show();
+      Toast tag = Toast.makeText(this,R.string.altFlipOff , Toast.LENGTH_LONG);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
     }
   }
 
   public void disScaleFlipMode(View view) {
     MainActivity.disableScaleFlipEffect = disScaleFlipBox.isChecked();
     if (MainActivity.disableScaleFlipEffect && view != null) {
-      Toast.makeText(this, "The coin will now"
-          + " flip without scaling animation (also ++ flips)", Toast.LENGTH_LONG).show();
+      Toast tag = Toast.makeText(this,R.string.disScaleFlipOn , Toast.LENGTH_LONG);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
     } else if (!MainActivity.disableScaleFlipEffect && view != null) {
-      Toast.makeText(this, "The coin will now"
-          + " flip with preset scale animation", Toast.LENGTH_LONG).show();
+      Toast tag = Toast.makeText(this,R.string.disScaleFlipOff , Toast.LENGTH_LONG);
+      killAllToast();
+      toastDatabase.add(tag); // for kill
+      tag.show();
     }
   }
 
@@ -210,10 +269,28 @@ public class MainActivity extends AppCompatActivity {
     disScaleFlipBox.setChecked(disableScaleFlipEffect);
   }
 
+  private void initMP3() {
+    coinSound = MediaPlayer.create(this, R.raw.coin);
+    scoreSound = MediaPlayer.create(this, R.raw.score);
+    highScoreSound = MediaPlayer.create(this, R.raw.highscore);
+
+  }
+
+  public void mute(View view) {
+    if (soundEnabled) {
+      soundEnabled = false;
+      view.setBackground(getResources().getDrawable(R.drawable.mute));
+    } else {
+      soundEnabled = true;
+      view.setBackground(getResources().getDrawable(R.drawable.volume));
+    }
+  }
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    initMP3();
 
     headsView = (ImageView) findViewById(R.id.headsViewXML);
     tailsView = (ImageView) findViewById(R.id.tailsViewXML);
@@ -229,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
     plusFlipBox = (CheckBox) findViewById(R.id.plusFlipBox);
     altFlipBox = (CheckBox) findViewById(R.id.altFlipBox);
     disScaleFlipBox = (CheckBox) findViewById(R.id.disScaleFlipBox);
+    speakerView = (Button) findViewById(R.id.muteButton);
 
     TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f,
         0.0f); // new TranslateAnimation(xFrom,xTo, yFrom,yTo)
@@ -257,7 +335,9 @@ public class MainActivity extends AppCompatActivity {
       strikes = new ArrayList<>(savedInstanceState.getStringArrayList(STRIKES_KEY));
       isDisplayingHeads = savedInstanceState.getBoolean(IS_HEADS_KEY);
       wasDisplayingHeads = savedInstanceState.getBoolean(WAS_HEADS_KEY);
+      soundEnabled = savedInstanceState.getBoolean("sound");
       //dev
+      devExec = savedInstanceState.getBoolean("firstDev");
       firstExecution = savedInstanceState.getBoolean("first");
       devActive = savedInstanceState.getBoolean(DEV_KEY);
       cheatActive = savedInstanceState.getBoolean(CHEAT_KEY);
@@ -277,6 +357,9 @@ public class MainActivity extends AppCompatActivity {
         headsView.setVisibility(View.GONE);
       }
 
+      if (!soundEnabled) {
+        speakerView.setBackground(getResources().getDrawable(R.drawable.mute));
+      }
       updateScreen();
     }
 
@@ -300,8 +383,10 @@ public class MainActivity extends AppCompatActivity {
     bundle.putStringArrayList(STRIKES_KEY, strikes);
     bundle.putBoolean(WAS_HEADS_KEY, wasDisplayingHeads);
     bundle.putBoolean(IS_HEADS_KEY, isDisplayingHeads);
+    bundle.putBoolean("sound", soundEnabled);
     //dev
     bundle.putBoolean("first", firstExecution);
+    bundle.putBoolean("firstDev", devExec);
     bundle.putBoolean(DEV_KEY, devActive);
     bundle.putBoolean(CHEAT_KEY, cheatActive);
     bundle.putBoolean(PLUS_FLIP_KEY, plusFlips);
@@ -311,6 +396,11 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void update(View view) {
+
+    if (soundEnabled) {
+      Log.v("MainActivity-MP3_Init", "Playing coin toss sound.");
+      coinSound.start();
+    }
 
     if (!cheatActive) { //dev option
       result = result(rand.nextBoolean());
@@ -397,11 +487,18 @@ public class MainActivity extends AppCompatActivity {
     scoreTV.setText(String.valueOf(score));
     TextView highScoreTV = (TextView) findViewById(R.id.highScore);
     highScoreTV.setText(String.valueOf(highScore));
+    final HorizontalScrollView hsv = (HorizontalScrollView) findViewById(R.id.strikesScrollView);
     //
     LinearLayout linearLayout = (LinearLayout) findViewById(R.id.strikesLayout);
 
     linearLayout.removeAllViewsInLayout();
     if (strikes.size() > 0) {
+      //thanks to https://stackoverflow.com/a/4720563/9301923
+      hsv.postDelayed(new Runnable() {
+        public void run() {
+          hsv.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+        }
+      }, 100L);
       if (strikes.size() == 1) {
         //play animation
         ImageView image = new ImageView(this);
@@ -447,7 +544,7 @@ public class MainActivity extends AppCompatActivity {
         r2l.setFillAfter(true);
         image.startAnimation(r2l);
       }
-    }else{
+    } else {
       linearLayout.removeAllViews();
     }
 
@@ -459,6 +556,11 @@ public class MainActivity extends AppCompatActivity {
     if (result == choice) {
       //win
       score++;
+      if (soundEnabled) {
+        Log.v("MainActivity-MP3_Init", "Playing score sound.");
+        scoreSound.start();
+      }
+
       if (score > highScore) {
         highScore = score;
         newHighscore = true;
@@ -469,7 +571,15 @@ public class MainActivity extends AppCompatActivity {
       score = 0;
       strikes.clear();
       if (newHighscore) {
-        Toast.makeText(this, R.string.highScoreToast, Toast.LENGTH_SHORT).show();
+        if (soundEnabled) {
+          Log.v("MainActivity-MP3_Init", "Playing high score sound.");
+          highScoreSound.start();
+        }
+
+        Toast tag = Toast.makeText(this, R.string.highScoreToast, Toast.LENGTH_SHORT);
+        killAllToast();
+        toastDatabase.add(tag); // for kill
+        tag.show();
         newHighscore = false;
       }
     }

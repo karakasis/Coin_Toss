@@ -84,14 +84,15 @@
       <HorizontalScrollView
         android:id="@+id/strikesScrollView"
         android:layout_width="match_parent"
-        android:layout_marginTop="-4dp"
+        android:layout_marginTop="2dp"
         android:layout_height="60dp"
         android:layout_below="@id/scores"
         android:orientation="horizontal"
         android:fillViewport="true"
         android:scrollbars="none"
         android:measureAllChildren="false"
-        android:background="@color/secondaryTextColor"
+        android:layout_marginRight="6dp"
+        android:background="@drawable/borderscroll"
         >
         <LinearLayout
           android:id="@+id/strikesLayout"
@@ -102,6 +103,23 @@
 
           </LinearLayout>
       </HorizontalScrollView>
+      <LinearLayout
+        android:id="@+id/muteLayout"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/strikesScrollView"
+        android:layout_alignParentRight="true">
+        <Button
+          android:id="@+id/muteButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          style="?android:attr/buttonBarButtonStyle"
+          android:background="@drawable/volume"
+          android:scaleX="0.4"
+          android:scaleY="0.5"
+          android:onClick="mute"/>
+      </LinearLayout>
       <FrameLayout
         android:id="@+id/container"
         android:layout_width="wrap_content"

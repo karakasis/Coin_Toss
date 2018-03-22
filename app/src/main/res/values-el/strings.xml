@@ -13,4 +13,36 @@
     <string name="altFlip_mode">altFlip</string>
   <string name="disFlip_mode">disFlip</string>
   <string name="disScaleFlip_mode">disScaleFlip</string>
+
+  <string name="devMode">
+    Επιλογές προγραμματιστή. Αποκτήστε πρόσβαση σε πρόσθετες λειτουργίες.<br />
+              &#x2713; cheat για να πάρετε την πρόβλεψη των κερμάτων.<br />
+              Αλλάξτε τον τρόπο με τον οποίο λειτουργεί η κινούμενη εικόνα (δεν μπορούσαμε να αποφασίσουμε): <br />
+              &#x2713; plusFlip προσθέτει έξτρα περιστροφές στο κέρμα, <br />
+              &#x2713; altFlip αλλάζει την πολυωνυμική συνάρτηση  <br />
+              &#x2713; disScale απενεργοποιεί το φαινόμενο της μεγέθυνσης κατά την περιστροφή.
+  </string>
+
+  <string name="cheatOn">Η σωστή πρόβλεψη θα εμφανίζεται με ένα κόκκινο πλαίσιο</string>
+
+
+  <string name="cheatOff">Απενεργοποίηση λειτουργίας Cheat. Τα πλαίσια έχουν ξανά κοινό χρώμα</string>
+
+
+  <string name="plusFlipOn">Η μετατόπιση από πλευρά σε πλευρά θα γίνεται με 3 περιστροφές</string>
+
+
+  <string name="plusFlipOff">Η μετατόπιση από πλευρά σε πλευρά θα γίνεται με 1 περιστροφή</string>
+
+  <string name="altFlipOn">Το κέρμα θα μεγενθύνεται βάση γραμμικής παρεμβολής</string>
+
+
+  <string name="altFlipOff">Το κέρμα θα μεγενθύνεται με την αρχική προσέγγιση</string>
+
+  <string name="disScaleFlipOn">Το κέρμα θα περιστρέφεται χωρίς μεγένθυση προσθέτει<br />
+                          έξτρα περιστροφές στην κίνηση</string>
+
+
+  <string name="disScaleFlipOff">Το κέρμα θα περιστρέφεται με την αρχική προσέγγιση</string>
+
 </resources>

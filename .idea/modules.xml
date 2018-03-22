@@ -4,10 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Coin_Toss.iml" filepath="$PROJECT_DIR$/Coin_Toss.iml" />
       <module fileurl="file://C:\Users\test\StudioProjects\Coin_Toss_Local\Coin_Toss.iml" filepath="C:\Users\test\StudioProjects\Coin_Toss_Local\Coin_Toss.iml" />
-      <module fileurl="file://C:\Users\Xrhstos\Desktop\Coin_Toss\Coin_Toss.iml" filepath="C:\Users\Xrhstos\Desktop\Coin_Toss\Coin_Toss.iml" />
       <module fileurl="file://C:\Users\Xrhstos\Desktop\Coin_Toss\Coin_Toss_Local.iml" filepath="C:\Users\Xrhstos\Desktop\Coin_Toss\Coin_Toss_Local.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Xrhstos\Desktop\Coin_Toss\app\app.iml" filepath="C:\Users\Xrhstos\Desktop\Coin_Toss\app\app.iml" />
     </modules>
   </component>
 </project>

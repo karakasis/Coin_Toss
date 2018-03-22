@@ -108,7 +108,7 @@
           android:fillViewport="true"
           android:scrollbars="none"
           android:measureAllChildren="false"
-          android:background="@color/secondaryTextColor"
+          android:background="@drawable/borderscroll"
           >
           <LinearLayout
             android:id="@+id/strikesLayout"
@@ -121,6 +121,23 @@
         </HorizontalScrollView>
 
       </RelativeLayout>
+      <LinearLayout
+        android:id="@+id/muteLayout"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scores"
+        android:layout_alignParentRight="true">
+        <Button
+          android:id="@+id/muteButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          style="?android:attr/buttonBarButtonStyle"
+          android:background="@drawable/volume"
+          android:scaleX="0.4"
+          android:scaleY="0.5"
+          android:onClick="mute"/>
+      </LinearLayout>
 
       <LinearLayout
         android:id="@+id/comboBoxes"
