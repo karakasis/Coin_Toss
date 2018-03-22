@@ -21,8 +21,15 @@ public class FlipListener implements ValueAnimator.AnimatorUpdateListener {
     float value = animation.getAnimatedFraction();
     final float animValue = (float) animation.getAnimatedValue();
     float scaleValue;
-    if (MainActivity.alternateFlipEffect) { //dev
-      value = value * 100f;
+
+    scaleValue = 0.6f - (1.5f * (value - 0.5f) * (value - 0.5f));
+    System.out.println(scaleValue + " " + value);
+    if (scaleValue <= 0.35 && value > 0.8) {
+      scaleValue = 0.35f;
+    }
+
+    /*
+    value = value * 100f;
       //functions calculated with a linear interpolation with 8 data points
       //https://tools.timodenk.com/linear-interpolation
       if (value <= 2) {
@@ -44,13 +51,7 @@ public class FlipListener implements ValueAnimator.AnimatorUpdateListener {
       }
 
       scaleValue = 0.35f * scaleValue / 100f;
-    } else {
-      scaleValue = 0.6f - (1.5f * (value - 0.5f) * (value - 0.5f));
-      System.out.println(scaleValue + " " + value);
-      if (scaleValue <= 0.35 && value > 0.8) {
-        scaleValue = 0.35f;
-      }
-    }
+     */
 
     if (flipBounds(animValue)) {
       this.frontView.setRotationY(180 * animValue);

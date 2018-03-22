@@ -25,14 +25,6 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-
-  //dev
-  private boolean devActive = false;
-  private boolean plusFlips = false;
-  public static boolean alternateFlipEffect = false;
-  //dev
-  private int swapSideFlip = 1;
-
   private EnumChoice choice;
   private EnumChoice result = EnumChoice.HEADS; // wont mess with the app results
   private boolean newHighscore = false;
@@ -62,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
   private ValueAnimator mFlipAnimator;
   private ValueAnimator scaleAnimator;
-  //android:scaleX="0.2752368"
 
 
   @Override
@@ -70,41 +61,24 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    //dev
-    if(plusFlips){
-      swapSideFlip = 3;
-    }else{
-      swapSideFlip = 1;
-    }
-    if(devActive){
-      result = result(rand.nextBoolean());
-      if(result == EnumChoice.HEADS){
-
-      }else{
-
-      }
-    }
-    //dev
-
     headsView = (ImageView) findViewById(R.id.headsViewXML);
     tailsView = (ImageView) findViewById(R.id.tailsViewXML);
     headsButton = (Button) findViewById(R.id.heads);
     tailsButton = (Button) findViewById(R.id.tails);
 
-
-    TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f, 0.0f); // new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+    TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f,
+        0.0f); // new TranslateAnimation(xFrom,xTo, yFrom,yTo)
     r2l.setDuration(1000); // animation duration
     r2l.setRepeatCount(0); // animation repeat count if u want to repeat
     r2l.setFillAfter(true);
-    tailsButton .startAnimation(r2l);//your_view for mine is imageView
+    tailsButton.startAnimation(r2l);//your_view for mine is imageView
 
-    TranslateAnimation l2r = new TranslateAnimation(-1500.0f, 0.0f, 0.0f, 0.0f); // new TranslateAnimation(xFrom,xTo, yFrom,yTo)
+    TranslateAnimation l2r = new TranslateAnimation(-1500.0f, 0.0f, 0.0f,
+        0.0f); // new TranslateAnimation(xFrom,xTo, yFrom,yTo)
     l2r.setDuration(1000); // animation duration
     l2r.setRepeatCount(0); // animation repeat count if u want to repeat
     l2r.setFillAfter(true);
-    headsButton .startAnimation(l2r);//your_view for mine is imageView
-
-
+    headsButton.startAnimation(l2r);//your_view for mine is imageView
 
     //First run will initialize animation
     mFlipAnimator = ValueAnimator.ofFloat(0f, 1f);
@@ -151,9 +125,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   public void update(View view) {
-    if(!devActive){ //dev
-      result = result(rand.nextBoolean());
-    }
+
+    result = result(rand.nextBoolean());
 
     setupAnimation(randomFlips());
 
@@ -197,13 +170,13 @@ public class MainActivity extends AppCompatActivity {
       } else {
         // result = HEADS , previous result = TAILS , saved result = HEADS
         //return 2 * (rand.nextInt(1) + 1) + 1;
-        return swapSideFlip;
+        return 1;
       }
     } else if (result == EnumChoice.TAILS) {
       if (wasDisplayingHeads) {
         // result = TAILS , previous result = HEADS , saved result = TAILS
         //return 2 * (rand.nextInt(1) + 1) + 1;
-        return swapSideFlip;
+        return 1;
       } else {
         // result = TAILS , previous result = TAILS , saved result = TAILS
         //return 2 * (rand.nextInt(1) + 1);
