@@ -140,56 +140,6 @@
       </LinearLayout>
 
       <LinearLayout
-        android:id="@+id/comboBoxes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/buttons"
-        android:orientation="vertical">
-
-        <CheckBox
-          android:id="@+id/devBox"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:buttonTint="@color/secondaryDarkColor"
-          android:onClick="devMode"
-          android:text="@string/dev_mode"/>
-        <CheckBox
-          android:id="@+id/cheatBox"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:buttonTint="@color/secondaryColor"
-          android:onClick="cheatMode"
-          android:text="@string/cheat_mode"/>
-        <CheckBox
-          android:id="@+id/plusFlipBox"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:buttonTint="@color/secondaryColor"
-          android:onClick="plusFlipMode"
-          android:text="@string/plusFlip_mode"/>
-        <LinearLayout
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal">
-
-          <CheckBox
-            android:id="@+id/altFlipBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/secondaryColor"
-            android:onClick="altFlipMode"
-            android:text="@string/altFlip_mode"/>
-          <CheckBox
-            android:id="@+id/disScaleFlipBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/secondaryColor"
-            android:onClick="disScaleFlipMode"
-            android:text="@string/disScaleFlip_mode"/>
-        </LinearLayout>
-
-      </LinearLayout>
-      <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

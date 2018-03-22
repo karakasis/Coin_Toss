@@ -9,8 +9,7 @@ class ScaleListener implements ValueAnimator.AnimatorUpdateListener {
 
   public ScaleListener(final View front, final View back) {
     this.frontView = front;
-    View backView = back;
-    backView.setVisibility(View.GONE);
+    back.setVisibility(View.GONE);
   }
 
   @Override

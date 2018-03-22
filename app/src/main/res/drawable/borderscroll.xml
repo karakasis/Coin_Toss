@@ -22,7 +22,7 @@
       <stroke
         android:color="@color/primaryTextColor"
         android:width="1dp"/>
-      <solid android:color="#3b263238" />
+      <solid android:color="@color/secondaryDarkColor" />
     </shape>
   </item>
 </layer-list>

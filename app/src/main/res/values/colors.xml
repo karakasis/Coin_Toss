@@ -4,23 +4,27 @@
 
     <resources>
 
-    <color name="primaryColor">#bdbdbd</color>
+    <color name="primaryColor">#fcd93f</color>
 
-    <color name="buttonTextColor">#263238</color>
+    <color name="primaryColorOpaque">#adfcd93f</color>
 
-    <color name="primaryLightColor">#96cfcfcf</color>
+    <color name="primaryLightColor">#fcd93f</color>
 
-    <color name="primaryDarkColor">#707070</color>
+    <color name="primaryDarkColor">#4e342e</color>
 
-    <color name="secondaryColor">#fdd835</color>
+    <color name="primaryDarkColor2">#edcc37</color>
+
+    <color name="secondaryColor">#96d7d0</color>
 
     <color name="secondaryLightColor">#a7ffeb</color>
 
-    <color name="secondaryDarkColor">#c71b1b</color>
+    <color name="secondaryDarkColor">#3b263238</color>
 
     <color name="primaryTextColor">#263238</color>
 
     <color name="secondaryTextColor">#a0263238</color>
+
+    <color name="buttonTextColor">#263238</color>
 
     <color name="background">#96d7d0</color>
 

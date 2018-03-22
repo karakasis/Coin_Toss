@@ -22,9 +22,7 @@
 
     <item name="android:textColor">@color/primaryTextColor</item>
 
-    <item name="colorButtonNormal">@color/secondaryColor</item>
-
-    <item name="android:buttonBarButtonStyle">@color/secondaryColor</item>
+    <item name="android:textColorSecondary">@color/primaryTextColor</item>
 
   </style>
 
