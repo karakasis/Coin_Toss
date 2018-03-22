@@ -13,7 +13,7 @@ public class RunTests {
     private static EnumResult result;
     private static boolean wasDisplayingHeads = true;
     private static boolean isDisplayingHeads = true;
-    private static Random rand=new Random();
+    private static final Random rand=new Random();
 
     private enum EnumResult {
         HEADS,
@@ -27,7 +27,7 @@ public class RunTests {
         simulate(10000);
     }
 
-    public static void simulate(int num){
+    private static void simulate(int num){
 
         for(int i=0; i<num; i++){
 
@@ -38,12 +38,8 @@ public class RunTests {
     }
 
     private static EnumResult result(boolean val){
-        if(result == EnumResult.HEADS) // previous roll
-        {
-            wasDisplayingHeads = true;
-        }else{
-            wasDisplayingHeads = false;
-        }
+        // previous roll
+        wasDisplayingHeads = result == EnumResult.HEADS;
 
         if(val){
             headsCount++;

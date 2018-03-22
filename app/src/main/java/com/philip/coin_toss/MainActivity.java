@@ -1,39 +1,76 @@
 package com.philip.coin_toss;
 
-import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
-import android.media.Image;
 import android.media.MediaPlayer;
-import android.os.CountDownTimer;
-import android.support.animation.FlingAnimation;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
+import android.os.CountDownTimer;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity {
 
-  private ArrayList<Toast> toastDatabase = new ArrayList<>();
+  private static final String DEV_KEY = "DEV";
+  private static final String CHEAT_KEY = "CHEAT";
+  private static final String PLUS_FLIP_KEY = "PLUS_FLIP";
+  private static final String ALT_FLIP_KEY = "ALT_FLIP";
+  private static final String DIS_SCALE_FLIP_KEY = "DIS_SCALE_FLIP";
+  private static final String CHEAT_RESULT_KEY = "CHEAT_RESULT";
+  private static final String SCORE_KEY = "SCORE";
+  private static final String HIGHSCORE_KEY = "HIGHSCORE";
+  private static final String STRIKES_KEY = "STRIKES";
+  private static final String WAS_HEADS_KEY = "WAS_HEADS";
+  private static final String IS_HEADS_KEY = "IS_HEADS";
+  public static boolean alternateFlipEffect = false;
+  public static boolean disableScaleFlipEffect = false;
+  private final ArrayList<Toast> toastDatabase = new ArrayList<>();
+  private final Random rand = new Random();
+  public ImageView headsView;
+  public ImageView tailsView;
+  public Button headsButton;
+  public Button tailsButton;
+  //dev
+  private boolean firstExecution = true;
+  private boolean devExec = true;
+  private boolean devActive = false;
+  private boolean cheatActive = false;
+  private boolean cheatResult;
+  private boolean plusFlips = false;
+  private CheckBox devBox;
+  private CheckBox cheatBox;
+  private CheckBox plusFlipBox;
+  private CheckBox altFlipBox;
+  private CheckBox disScaleFlipBox;
+  //dev
+  private int swapFlips = 1;
+  private EnumChoice choice;
+  private EnumChoice result = EnumChoice.HEADS; // wont mess with the app results
+  private boolean newHighscore = false;
+  private int score = 0;
+  private int highScore = 0;
+  private ArrayList<String> strikes = new ArrayList<>();
+  private boolean wasDisplayingHeads = true;
+  private boolean isDisplayingHeads = true;
+  private ValueAnimator mFlipAnimator;
+  private ValueAnimator scaleAnimator;
+  private MediaPlayer coinSound;
+  private MediaPlayer scoreSound;
+  private MediaPlayer highScoreSound;
+  private boolean soundEnabled = true;
 
   private void killAllToast() {
     for (Toast t : toastDatabase) {
@@ -43,71 +80,6 @@ public class MainActivity extends AppCompatActivity {
     }
     toastDatabase.clear();
   }
-
-  //dev
-  private boolean firstExecution = true;
-  private boolean devExec = true;
-  private boolean devActive = false;
-  private boolean cheatActive = false;
-  private boolean cheatResult;
-  private boolean plusFlips = false;
-  public static boolean alternateFlipEffect = false;
-  public static boolean disableScaleFlipEffect = false;
-
-  private static final String DEV_KEY = "DEV";
-  private static final String CHEAT_KEY = "CHEAT";
-  private static final String PLUS_FLIP_KEY = "PLUS_FLIP";
-  private static final String ALT_FLIP_KEY = "ALT_FLIP";
-  private static final String DIS_SCALE_FLIP_KEY = "DIS_SCALE_FLIP";
-  private static final String CHEAT_RESULT_KEY = "CHEAT_RESULT";
-
-
-  private CheckBox devBox;
-  private CheckBox cheatBox;
-  private CheckBox plusFlipBox;
-  private CheckBox altFlipBox;
-  private CheckBox disScaleFlipBox;
-
-  //dev
-  private int swapFlips = 1;
-
-  private EnumChoice choice;
-  private EnumChoice result = EnumChoice.HEADS; // wont mess with the app results
-  private boolean newHighscore = false;
-  private Random rand = new Random();
-
-
-  private enum EnumChoice {
-    HEADS,
-    TAILS
-  }
-
-  private static final String SCORE_KEY = "SCORE";
-  private static final String HIGHSCORE_KEY = "HIGHSCORE";
-  private static final String STRIKES_KEY = "STRIKES";
-  private static final String WAS_HEADS_KEY = "WAS_HEADS";
-  private static final String IS_HEADS_KEY = "IS_HEADS";
-
-  private int score = 0;
-  private int highScore = 0;
-  private ArrayList<String> strikes = new ArrayList<>();
-
-  public ImageView headsView;
-  public ImageView tailsView;
-  public Button headsButton;
-  public Button tailsButton;
-
-  private boolean wasDisplayingHeads = true;
-  private boolean isDisplayingHeads = true;
-
-  private ValueAnimator mFlipAnimator;
-  private ValueAnimator scaleAnimator;
-
-  private MediaPlayer coinSound;
-  private MediaPlayer scoreSound;
-  private MediaPlayer highScoreSound;
-  private boolean soundEnabled = true;
-  private View speakerView;
 
   public void devMode(View view) {
     if (devBox.isChecked() && devExec && view != null) {
@@ -292,21 +264,21 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     initMP3();
 
-    headsView = (ImageView) findViewById(R.id.headsViewXML);
-    tailsView = (ImageView) findViewById(R.id.tailsViewXML);
-    headsButton = (Button) findViewById(R.id.heads);
-    tailsButton = (Button) findViewById(R.id.tails);
+    headsView = findViewById(R.id.headsViewXML);
+    tailsView = findViewById(R.id.tailsViewXML);
+    headsButton = findViewById(R.id.heads);
+    tailsButton = findViewById(R.id.tails);
     //dev
     if (firstExecution) {
       cheatResult = rand.nextBoolean();
       firstExecution = false;
     }
-    devBox = (CheckBox) findViewById(R.id.devBox);
-    cheatBox = (CheckBox) findViewById(R.id.cheatBox);
-    plusFlipBox = (CheckBox) findViewById(R.id.plusFlipBox);
-    altFlipBox = (CheckBox) findViewById(R.id.altFlipBox);
-    disScaleFlipBox = (CheckBox) findViewById(R.id.disScaleFlipBox);
-    speakerView = (Button) findViewById(R.id.muteButton);
+    devBox = findViewById(R.id.devBox);
+    cheatBox = findViewById(R.id.cheatBox);
+    plusFlipBox = findViewById(R.id.plusFlipBox);
+    altFlipBox = findViewById(R.id.altFlipBox);
+    disScaleFlipBox = findViewById(R.id.disScaleFlipBox);
+    View speakerView = findViewById(R.id.muteButton);
 
     TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f,
         0.0f); // new TranslateAnimation(xFrom,xTo, yFrom,yTo)
@@ -332,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
       //load bundle
       score = savedInstanceState.getInt(SCORE_KEY);
       highScore = savedInstanceState.getInt(HIGHSCORE_KEY);
+      //noinspection ConstantConditions
       strikes = new ArrayList<>(savedInstanceState.getStringArrayList(STRIKES_KEY));
       isDisplayingHeads = savedInstanceState.getBoolean(IS_HEADS_KEY);
       wasDisplayingHeads = savedInstanceState.getBoolean(WAS_HEADS_KEY);
@@ -425,12 +398,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private EnumChoice result(boolean val) {
-    if (result == EnumChoice.HEADS) // previous roll
-    {
-      wasDisplayingHeads = true;
-    } else {
-      wasDisplayingHeads = false;
-    }
+    // previous roll
+    wasDisplayingHeads = result == EnumChoice.HEADS;
 
     if (val) {
       isDisplayingHeads = true;
@@ -483,22 +452,18 @@ public class MainActivity extends AppCompatActivity {
     cheatResult = rand.nextBoolean();
     showCheatResult();
 
-    TextView scoreTV = (TextView) findViewById(R.id.score);
+    TextView scoreTV = findViewById(R.id.score);
     scoreTV.setText(String.valueOf(score));
-    TextView highScoreTV = (TextView) findViewById(R.id.highScore);
+    TextView highScoreTV = findViewById(R.id.highScore);
     highScoreTV.setText(String.valueOf(highScore));
-    final HorizontalScrollView hsv = (HorizontalScrollView) findViewById(R.id.strikesScrollView);
+    final HorizontalScrollView hsv = findViewById(R.id.strikesScrollView);
     //
-    LinearLayout linearLayout = (LinearLayout) findViewById(R.id.strikesLayout);
+    LinearLayout linearLayout = findViewById(R.id.strikesLayout);
 
     linearLayout.removeAllViewsInLayout();
     if (strikes.size() > 0) {
       //thanks to https://stackoverflow.com/a/4720563/9301923
-      hsv.postDelayed(new Runnable() {
-        public void run() {
-          hsv.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
-        }
-      }, 100L);
+      hsv.postDelayed(() -> hsv.fullScroll(HorizontalScrollView.FOCUS_RIGHT), 100L);
       if (strikes.size() == 1) {
         //play animation
         ImageView image = new ImageView(this);
@@ -606,5 +571,10 @@ public class MainActivity extends AppCompatActivity {
       scaleAnimator.addUpdateListener(new ScaleListener(tailsView, headsView));
     }
     scaleAnimator.start();
+  }
+
+  private enum EnumChoice {
+    HEADS,
+    TAILS
   }
 }

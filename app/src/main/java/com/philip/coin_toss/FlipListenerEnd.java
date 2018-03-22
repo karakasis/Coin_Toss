@@ -1,25 +1,19 @@
 package com.philip.coin_toss;
 
 import android.animation.Animator;
-import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.pm.ActivityInfo;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-
-import java.util.concurrent.locks.Lock;
 
 /**
  * Created by Xrhstos on 3/15/2018.
  */
 
-public class FlipListenerEnd implements ValueAnimator.AnimatorListener {
+class FlipListenerEnd implements ValueAnimator.AnimatorListener {
 
-    private MainActivity parent;
-    private Button butA;
-    private Button butB;
+    private final MainActivity parent;
+    private final Button butA;
+    private final Button butB;
 
     public FlipListenerEnd(MainActivity parent){
         this.parent = parent;

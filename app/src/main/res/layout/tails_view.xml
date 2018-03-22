@@ -12,6 +12,6 @@
         android:src="@drawable/tails"
         android:scaleX="0.35"
         android:scaleY="0.35"
-        >
+      android:contentDescription="TODO">
     </ImageView>
 </RelativeLayout>

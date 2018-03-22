@@ -3,7 +3,7 @@ package com.philip.coin_toss;
 import android.animation.ValueAnimator;
 import android.view.View;
 
-public class FlipListener implements ValueAnimator.AnimatorUpdateListener {
+class FlipListener implements ValueAnimator.AnimatorUpdateListener {
 
   private final View frontView;
   private final View backView;

@@ -4,8 +4,6 @@
     <string name="tails">TAILS</string>
     <string name="score">Score:&#160;</string>
     <string name="highScore">High Score:&#160;</string>
-    <string name="strikesHeads">HEADS&#160;</string>
-    <string name="strikesTails">Tails&#160;</string>
     <string name="highScoreToast">New high Score!</string>
     <string name="dev_mode">dev</string>
     <string name="cheat_mode">cheat</string>
