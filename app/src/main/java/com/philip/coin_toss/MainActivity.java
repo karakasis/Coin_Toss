@@ -25,6 +25,13 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+  //dev
+  private boolean devActive = true;
+  private boolean swapFlipCount = false;
+  public static boolean alternateFlipEffect = false;
+  //dev
+  private int swapFlips = 1;
+
   private EnumChoice choice;
   private EnumChoice result = EnumChoice.HEADS; // wont mess with the app results
   private boolean newHighscore = false;
@@ -60,6 +67,18 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+    //dev
+    if(devActive){
+      result = result(rand.nextBoolean());
+    }
+
+    if(swapFlipCount){
+      swapFlips = 3;
+    }else{
+      swapFlips = 1;
+    }
+    //dev
 
     headsView = (ImageView) findViewById(R.id.headsViewXML);
     tailsView = (ImageView) findViewById(R.id.tailsViewXML);
@@ -126,7 +145,9 @@ public class MainActivity extends AppCompatActivity {
 
   public void update(View view) {
 
-    result = result(rand.nextBoolean());
+    if(!devActive){ //dev option
+      result = result(rand.nextBoolean());
+    }
 
     setupAnimation(randomFlips());
 
@@ -170,13 +191,13 @@ public class MainActivity extends AppCompatActivity {
       } else {
         // result = HEADS , previous result = TAILS , saved result = HEADS
         //return 2 * (rand.nextInt(1) + 1) + 1;
-        return 1;
+        return swapFlips;
       }
     } else if (result == EnumChoice.TAILS) {
       if (wasDisplayingHeads) {
         // result = TAILS , previous result = HEADS , saved result = TAILS
         //return 2 * (rand.nextInt(1) + 1) + 1;
-        return 1;
+        return swapFlips;
       } else {
         // result = TAILS , previous result = TAILS , saved result = TAILS
         //return 2 * (rand.nextInt(1) + 1);
