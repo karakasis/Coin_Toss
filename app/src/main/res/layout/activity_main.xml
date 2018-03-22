@@ -1,140 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="com.philip.coin_toss.MainActivity">
+
+  <RelativeLayout
+    android:id="@+id/relativeLayout"
     android:layout_height="match_parent"
-    tools:context="com.philip.coin_toss.MainActivity">
+    android:layout_width="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@mipmap/table"
+
+      <RelativeLayout
+        android:id="@+id/scores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/border">
 
-        <LinearLayout
-            android:id="@+id/scores"
+
+        <RelativeLayout
+          android:id="@+id/sc"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_below="@id/hsc">
+
+          <TextView
+            android:id="@+id/scoreLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_centerInParent="true"
+            android:text="@string/score"
+            android:textSize="@dimen/scoreLabel_textSize"/>
 
+          <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/scoreLabel"
+            android:layout_centerHorizontal="true"
+            android:text="0"
+            android:textSize="@dimen/scoreValue_textSize"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/highScore"
-                    android:textSize="@dimen/scoreLabels_textSize" />
+        <LinearLayout
+          android:id="@+id/hsc"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_alignParentTop="true">
 
-                <TextView
-                    android:id="@+id/highScore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:paddingRight="8dp"
-                    android:text="0"
-                    android:textSize="@dimen/scoreValues_textSize" />
-            </LinearLayout>
+          <TextView
+            android:id="@+id/highScoreLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/highScore"
+            android:textSize="@dimen/highScoreLabel_textSize"/>
 
-            <LinearLayout
-                android:id="@+id/sc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/score"
-                    android:textSize="@dimen/scoreLabels_textSize" />
-
-                <TextView
-                    android:id="@+id/score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="32dp"
-                    android:paddingRight="8dp"
-                    android:text="0"
-                    android:textSize="@dimen/scoreValues_textSize" />
-
-            </LinearLayout>
+          <TextView
+            android:id="@+id/highScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12"
+            android:textSize="@dimen/highScoreValue_textSize"/>
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+      </RelativeLayout>
 
-            <include
-                android:id="@+id/notelist"
-                layout="@layout/tails_view" />
 
-            <include
-                android:id="@+id/notelist"
-                layout="@layout/heads_view" />
+    <LinearLayout
+      android:id="@+id/strikesLayout"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_below="@+id/scores"
+      android:layout_centerInParent="true"
+      android:orientation="horizontal"/>
 
 
 
-        </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/strikesLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/scores"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal" />
+    <FrameLayout
+      android:id="@+id/container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true">
 
-        <LinearLayout
-            android:id="@+id/buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp">
+      <include
+        android:id="@+id/notelist"
+        layout="@layout/tails_view"/>
+
+      <include
+        android:id="@+id/notelist"
+        layout="@layout/heads_view"/>
 
 
-            <Button
-                android:id="@+id/heads"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="168dp"
-                android:layout_height="88dp"
-                android:layout_weight="1"
-                android:alpha="0.6"
-                android:onClick="update"
-                android:text="@string/heads"
-                android:textSize="@dimen/button_textSize" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="88dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/tails"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="168dp"
-                android:layout_height="88dp"
-                android:layout_weight="1"
-                android:alpha="0.6"
-                android:onClick="update"
-                android:text="@string/tails"
-                android:textSize="@dimen/button_textSize"/>
-
-        </LinearLayout>
+    </FrameLayout>
 
 
-    </RelativeLayout>
+
+
+    <LinearLayout
+      android:id="@+id/buttons"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_centerInParent="true"
+      android:paddingLeft="8dp"
+      android:paddingRight="8dp"
+      android:orientation="horizontal">
+
+      <Button
+        android:id="@+id/heads"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="178dp"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:alpha="0.85"
+        android:background="@drawable/buttonshape"
+        android:onClick="update"
+        android:text="@string/heads"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="@dimen/button_textSize"/>
+
+      <View
+        android:layout_width="16dp"
+        android:layout_height="88dp"
+        android:layout_weight="1"/>
+
+      <Button
+        android:id="@+id/tails"
+        style="?android:attr/buttonBarButtonStyle"
+        android:layout_width="168dp"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:alpha="0.85"
+        android:onClick="update"
+        android:text="@string/tails"
+        android:textSize="@dimen/button_textSize"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/primaryTextColor"/>
+
+
+    </LinearLayout>
+
+
+  </RelativeLayout>
 
 
 </android.support.constraint.ConstraintLayout>

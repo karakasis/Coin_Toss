@@ -9,9 +9,9 @@
         android:id="@+id/headsViewXML"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
-        android:src="@mipmap/coin_heads"
-        android:scaleX="0.2752368"
-        android:scaleY="0.2752368"
+        android:src="@drawable/heads"
+        android:scaleX="0.35"
+        android:scaleY="0.35"
         >
     </ImageView>
 

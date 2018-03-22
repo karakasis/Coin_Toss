@@ -1,9 +1,12 @@
 package com.philip.coin_toss;
 
 import android.animation.Animator;
+import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.content.pm.ActivityInfo;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
 import java.util.concurrent.locks.Lock;
@@ -30,19 +33,25 @@ public class FlipListenerEnd implements ValueAnimator.AnimatorListener {
         butA.setEnabled(false);
         butB.setEnabled(false);
 
-        parent.headsView.setLayerType(parent.headsView.LAYER_TYPE_HARDWARE, null);
-        parent.tailsView.setLayerType(parent.tailsView.LAYER_TYPE_HARDWARE, null);
+        //parent.headsView.setLayerType(parent.headsView.LAYER_TYPE_HARDWARE, null);
+        //parent.tailsView.setLayerType(parent.tailsView.LAYER_TYPE_HARDWARE, null);
     }
 
     @Override
     public void onAnimationEnd(Animator animator) {
+
+        parent.tailsView.setScaleX(0.35f);
+        parent.tailsView.setScaleY(0.35f);
+        parent.headsView.setScaleX(0.35f);
+        parent.headsView.setScaleY(0.35f);
+
         parent.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         parent.makeResult();
         butA.setEnabled(true);
         butB.setEnabled(true);
 
-        parent.headsView.setLayerType(parent.headsView.LAYER_TYPE_NONE, null);
-        parent.tailsView.setLayerType(parent.tailsView.LAYER_TYPE_NONE, null);
+        //parent.headsView.setLayerType(parent.headsView.LAYER_TYPE_NONE, null);
+        //parent.tailsView.setLayerType(parent.tailsView.LAYER_TYPE_NONE, null);
     }
 
     @Override
