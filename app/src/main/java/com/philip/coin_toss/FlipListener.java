@@ -3,7 +3,7 @@ package com.philip.coin_toss;
 import android.animation.ValueAnimator;
 import android.view.View;
 
-public class FlipListener implements ValueAnimator.AnimatorUpdateListener {
+class FlipListener implements ValueAnimator.AnimatorUpdateListener {
 
   private final View frontView;
   private final View backView;
@@ -20,39 +20,11 @@ public class FlipListener implements ValueAnimator.AnimatorUpdateListener {
   public void onAnimationUpdate(final ValueAnimator animation) {
     float value = animation.getAnimatedFraction();
     final float animValue = (float) animation.getAnimatedValue();
-    float scaleValue;
-
-    scaleValue = 0.6f - (1.5f * (value - 0.5f) * (value - 0.5f));
+    float scaleValue = 0.6f - (1.5f * (value - 0.5f) * (value - 0.5f));
     System.out.println(scaleValue + " " + value);
     if (scaleValue <= 0.35 && value > 0.8) {
       scaleValue = 0.35f;
     }
-
-    /*
-    value = value * 100f;
-      //functions calculated with a linear interpolation with 8 data points
-      //https://tools.timodenk.com/linear-interpolation
-      if (value <= 2) {
-        scaleValue = -12.5f * value + 100f;
-      } else if (value > 2 && value <= 15) {
-        scaleValue = 1.9231f * value + 7.1154f;
-      } else if (value > 15 && value <= 35) {
-        scaleValue = 2f * value + 70f;
-      } else if (value > 35 && value <= 50) {
-        scaleValue = 1.3333f * value + 93.3333f;
-      } else if (value > 50 && value <= 70) {
-        scaleValue = -1.2f * value + 220f;
-      } else if (value > 70 && value <= 80) {
-        scaleValue = -1.1f * value + 213f;
-      } else if (value > 80 && value <= 90) {
-        scaleValue = -2f * value + 285f;
-      } else {
-        scaleValue = -0.5f * value + 150f;
-      }
-
-      scaleValue = 0.35f * scaleValue / 100f;
-     */
-
     if (flipBounds(animValue)) {
       this.frontView.setRotationY(180 * animValue);
       this.frontView.setScaleX(scaleValue);

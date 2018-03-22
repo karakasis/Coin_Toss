@@ -22,40 +22,9 @@
 
     <item name="android:textColor">@color/primaryTextColor</item>
 
-    <item name="colorButtonNormal">@color/secondaryColor</item>
-
-    <item name="android:buttonBarButtonStyle">@color/secondaryColor</item>
+    <item name="android:textColorSecondary">@color/primaryTextColor</item>
 
   </style>
-
-
-  <style name="StrikeHApp" parent="Theme.AppCompat.Light.NoActionBar">
-
-    <!-- Customize your theme here. -->
-
-
-    <item name="android:textSize">@dimen/strikes_textSize</item>
-
-    <item name="android:textColor">@color/secondaryColor</item>
-
-    <item name="android:text">@string/strikesHeads</item>
-
-  </style>
-
-
-  <style name="StrikeTApp" parent="Theme.AppCompat.Light.NoActionBar">
-
-    <!-- Customize your theme here. -->
-
-
-    <item name="android:textSize">@dimen/strikes_textSize</item>
-
-    <item name="android:textColor">@color/primaryTextColor</item>
-
-    <item name="android:text">@string/strikesTails</item>
-
-  </style>
-
 
   <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
     <item name="android:fontFamily">sans-serif-light</item>

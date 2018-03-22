@@ -4,7 +4,39 @@
     <string name="tails">TAILS</string>
     <string name="score">Score:&#160;</string>
     <string name="highScore">High Score:&#160;</string>
-    <string name="strikesHeads">H&#160;</string>
-    <string name="strikesTails">T&#160;</string>
     <string name="highScoreToast">New high Score!</string>
+    <string name="dev_mode">dev</string>
+    <string name="cheat_mode">cheat</string>
+    <string name="plusFlip_mode">plusFlip</string>
+    <string name="altFlip_mode">altFlip</string>
+    <string name="disScaleFlip_mode">disScaleFlip</string>
+
+    <string name="devMode">"Developer options. Gain access to extra features. \n"
+              &#x2713;" cheat to get the coin prediction. \n"
+              "Change the way the animation works(we couldn't decide on one): \n"
+              &#x2713; " plusFlip extends animation flipping, \n"
+              &#x2713;" altFlip changes the polynomial function and \n"
+              &#x2713;" disScale disables the scaling effect."</string>
+
+    <string name="cheatOn">"Correct choice will now be displayed with a RED border"</string>
+
+
+    <string name="cheatOff">"Cheat mode disabled. Borders are default color"</string>
+
+
+    <string name="plusFlipOn">"Swapping sides will now be animated with 3 flips"</string>
+
+
+    <string name="plusFlipOff">"Swapping sides will now be animated with 1 flip"</string>
+
+  <string name="altFlipOn">"The coin will now flip with modified animation "</string>
+
+
+    <string name="altFlipOff">"The coin will now flip with default animation"</string>
+
+  <string name="disScaleFlipOn">"The coin will now flip without scaling animation (also ++ flips)"</string>
+
+
+    <string name="disScaleFlipOff">"The coin will now flip with preset scale animation"</string>
+
 </resources>

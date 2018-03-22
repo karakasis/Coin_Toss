@@ -3,15 +3,13 @@ package com.philip.coin_toss;
 import android.animation.ValueAnimator;
 import android.view.View;
 
-public class ScaleListener implements ValueAnimator.AnimatorUpdateListener {
+class ScaleListener implements ValueAnimator.AnimatorUpdateListener {
 
   private final View frontView;
-  private final View backView;
 
   public ScaleListener(final View front, final View back) {
     this.frontView = front;
-    this.backView = back;
-    backView.setVisibility(View.GONE);
+    back.setVisibility(View.GONE);
   }
 
   @Override
