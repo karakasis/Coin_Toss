@@ -22,13 +22,13 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+  private int swapFlips = 3;
   private static final String SCORE_KEY = "SCORE";
   private static final String HIGHSCORE_KEY = "HIGHSCORE";
   private static final String STRIKES_KEY = "STRIKES";
   private static final String WAS_HEADS_KEY = "WAS_HEADS";
   private static final String IS_HEADS_KEY = "IS_HEADS";
-  public static boolean alternateFlipEffect = false;
-  public static boolean disableScaleFlipEffect = false;
+  private static final String SOUND_KEY = "SOUND";
   private final ArrayList<Toast> toastDatabase = new ArrayList<>();
   private final Random rand = new Random();
   public ImageView headsView;
@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
   private MediaPlayer highScoreSound;
   private boolean soundEnabled = true;
 
+  /**
+   * Kills all running toasts, avoid queuing toasts
+   */
   private void killAllToast() {
     for (Toast t : toastDatabase) {
       if (t != null) {
@@ -60,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
     toastDatabase.clear();
   }
 
+  /**
+   * Init method for mp3 sounds
+   */
   private void initMP3() {
     coinSound = MediaPlayer.create(this, R.raw.coin);
     scoreSound = MediaPlayer.create(this, R.raw.score);
@@ -67,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
 
   }
 
+  /**
+   * Mutes global sound in app
+   * @param view is the speaker icon in xml
+   */
   public void mute(View view) {
     if (soundEnabled) {
       soundEnabled = false;
@@ -118,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
       strikes = new ArrayList<>(savedInstanceState.getStringArrayList(STRIKES_KEY));
       isDisplayingHeads = savedInstanceState.getBoolean(IS_HEADS_KEY);
       wasDisplayingHeads = savedInstanceState.getBoolean(WAS_HEADS_KEY);
-      soundEnabled = savedInstanceState.getBoolean("sound");
+      soundEnabled = savedInstanceState.getBoolean(SOUND_KEY);
 
       if (isDisplayingHeads) {
         result = EnumChoice.HEADS;
@@ -137,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     scaleAnimator = ValueAnimator.ofFloat(0f, 1f);
-    //mFlipAnimator.addListener(new FlipListenerEnd(this));
     scaleAnimator.setDuration(1500);
     scaleAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
     setupScaleAnimation();
@@ -151,9 +160,15 @@ public class MainActivity extends AppCompatActivity {
     bundle.putStringArrayList(STRIKES_KEY, strikes);
     bundle.putBoolean(WAS_HEADS_KEY, wasDisplayingHeads);
     bundle.putBoolean(IS_HEADS_KEY, isDisplayingHeads);
-    bundle.putBoolean("sound", soundEnabled);
+    bundle.putBoolean(SOUND_KEY, soundEnabled);
   }
 
+  /**
+   * Gets called after heads/tail click
+   * contains basic setup to get things running
+   * also starts coin animation
+   * @param view is heads/tails button
+   */
   public void update(View view) {
 
     if (soundEnabled) {
@@ -178,6 +193,11 @@ public class MainActivity extends AppCompatActivity {
     mFlipAnimator.start();
   }
 
+  /**
+   * Converts boolean refering to heads or tails to enum
+   * @param val true = heads / false = tails
+   * @return proper enum wording
+   */
   private EnumChoice result(boolean val) {
     // previous roll
     wasDisplayingHeads = result == EnumChoice.HEADS;
@@ -191,8 +211,13 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  /**
+   * Translates current coin face , resulting coin face transition
+   * to flips value. Then this value is used to animate X coin flips.
+   * @return int X coin flips
+   */
   private int randomFlips() {
-    int swapFlips = 1;
+
     if (result == EnumChoice.HEADS) {
       if (wasDisplayingHeads) {
         // result = HEADS , previous result = HEADS , saved result = HEADS
@@ -214,6 +239,9 @@ public class MainActivity extends AppCompatActivity {
     return 0;//possible bug
   }
 
+  /**
+   * main screen updater also handles current strike animations (eg H-T-H-T-T-T-H)
+   */
   private void updateScreen() {
     TextView scoreTV = findViewById(R.id.score);
     scoreTV.setText(String.valueOf(score));
@@ -279,6 +307,11 @@ public class MainActivity extends AppCompatActivity {
     Log.v("MainActivity", "Update screen was called");
   }
 
+  /**
+   * gets called from flip Listener on end of animation to produce results on screen
+   * after the animation ends. Calls updateScreen()
+   * Handles win/lose or highscore and produces toast in case of the latter
+   */
   public void makeResult() {
 
     if (result == choice) {
@@ -314,6 +347,15 @@ public class MainActivity extends AppCompatActivity {
     updateScreen();
   }
 
+  /**
+   * Method called at every prediction of the coin. > Meaning once every time
+   * you click heads/tails button
+   * Adjusts the update Listener class with a new Object with the right parameters
+   * Also sets the floatValues on animator , meaning more flips on 2nd parameter will result
+   * in more animator values thus more rotations etc..
+   * Change the 2nd param to get more flips in a predefined duration 1.5 at this moment of compile
+   * @param flips int flips produced by randomFlips()
+   */
   private void setupAnimation(int flips) {
     mFlipAnimator.setFloatValues(0f, (float) flips);
 
@@ -325,6 +367,12 @@ public class MainActivity extends AppCompatActivity {
   }
 
   //https://stackoverflow.com/questions/7414065/android-scale-animation-on-view
+
+  /**
+   * Method called every time in onCreate or init of app.
+   * Handles the scaling animation of the coin when it pops up on screen
+   * Same logic as above method, adjusts update listener
+   */
   private void setupScaleAnimation() {
     scaleAnimator.setFloatValues(0f, 1f);
 

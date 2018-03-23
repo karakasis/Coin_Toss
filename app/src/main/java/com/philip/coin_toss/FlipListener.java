@@ -16,6 +16,10 @@ class FlipListener implements ValueAnimator.AnimatorUpdateListener {
     backView.setVisibility(View.GONE);
   }
 
+  /**
+   * Main method responsible for rotating and swapping vies to produce animation result
+   * @param animation animator object
+   */
   @Override
   public void onAnimationUpdate(final ValueAnimator animation) {
     float value = animation.getAnimatedFraction();
@@ -38,6 +42,10 @@ class FlipListener implements ValueAnimator.AnimatorUpdateListener {
     }
   }
 
+  /**
+   * Changes visibility of the 2 sides of coin. Depending on stage of animation
+   * @param flipped
+   */
   private void setStateFlipped(boolean flipped) {
     if (flipped) {
       this.frontView.setVisibility(View.GONE);
@@ -48,6 +56,14 @@ class FlipListener implements ValueAnimator.AnimatorUpdateListener {
     }
   }
 
+  /**
+   * Divides animatedValue
+   * animatedFraction value will be 0f to 1f
+   * animatedValue will be 0f to (float) flips
+   *
+   * @param val animatedValue of animator
+   * @return true if frontView is visible , false if backView
+   */
   private boolean flipBounds(float val) {
     for (int i = -1; i < flips; i = i + 2) {
       if (val > (0.5f + i) && val <= (0.5f + i + 1)) {
