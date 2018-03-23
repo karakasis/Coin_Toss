@@ -25,7 +25,6 @@ class FlipListener implements ValueAnimator.AnimatorUpdateListener {
     float value = animation.getAnimatedFraction();
     final float animValue = (float) animation.getAnimatedValue();
     float scaleValue = 0.6f - (1.5f * (value - 0.5f) * (value - 0.5f));
-    System.out.println(scaleValue + " " + value);
     if (scaleValue <= 0.35 && value > 0.8) {
       scaleValue = 0.35f;
     }

@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
   public Button tailsButton;
 
   private EnumChoice choice;
-  private EnumChoice result = EnumChoice.HEADS; // wont mess with the app results
+  private EnumChoice result = EnumChoice.HEADS;
   private boolean newHighscore = false;
   private int score = 0;
   private int highScore = 0;
@@ -100,19 +100,18 @@ public class MainActivity extends AppCompatActivity {
 
     View speakerView = findViewById(R.id.muteButton);
 
+    //button slide r2left
     TranslateAnimation r2l = new TranslateAnimation(1500.0f, 0.0f, 0.0f,
         0.0f); // new TranslateAnimation(xFrom,xTo, yFrom,yTo)
     r2l.setDuration(1000); // animation duration
-    r2l.setRepeatCount(0); // animation repeat count if u want to repeat
     r2l.setFillAfter(true);
-    tailsButton.startAnimation(r2l);//your_view for mine is imageView
-
+    tailsButton.startAnimation(r2l);
+    //button slide l2right
     TranslateAnimation l2r = new TranslateAnimation(-1500.0f, 0.0f, 0.0f,
         0.0f); // new TranslateAnimation(xFrom,xTo, yFrom,yTo)
     l2r.setDuration(1000); // animation duration
-    l2r.setRepeatCount(0); // animation repeat count if u want to repeat
     l2r.setFillAfter(true);
-    headsButton.startAnimation(l2r);//your_view for mine is imageView
+    headsButton.startAnimation(l2r);
 
     //First run will initialize animation
     mFlipAnimator = ValueAnimator.ofFloat(0f, 1f);
@@ -172,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
   public void update(View view) {
 
     if (soundEnabled) {
-      Log.v("MainActivity-MP3_Init", "Playing coin toss sound.");
       coinSound.start();
     }
     result = result(rand.nextBoolean());
@@ -318,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
       //win
       score++;
       if (soundEnabled) {
-        Log.v("MainActivity-MP3_Init", "Playing score sound.");
         scoreSound.start();
       }
 
@@ -333,7 +330,6 @@ public class MainActivity extends AppCompatActivity {
       strikes.clear();
       if (newHighscore) {
         if (soundEnabled) {
-          Log.v("MainActivity-MP3_Init", "Playing high score sound.");
           highScoreSound.start();
         }
 

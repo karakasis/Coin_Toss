@@ -32,7 +32,6 @@ class ScaleListener implements ValueAnimator.AnimatorUpdateListener {
     }
 
     scaleValue = 0.35f * scaleValue / 100f ;
-    System.out.println(scaleValue);
 
     this.frontView.setScaleX(scaleValue);
     this.frontView.setScaleY(scaleValue);
