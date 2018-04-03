@@ -1,15 +1,18 @@
 <?xml version="1.0"?>
 
-    <resources>
+<resources>
 
-    <!-- Base application theme. -->
+  <!-- Base application theme. -->
 
 
+  -
 
-    -<style parent="Theme.AppCompat.Light.NoActionBar" name="AppTheme">
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
     <!-- Customize your theme here. -->
+    <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
 
+    <item name="buttonStyle">@style/RobotoButtonStyle</item>
 
     <item name="colorPrimary">@color/primaryColor</item>
 
@@ -19,38 +22,16 @@
 
     <item name="android:textColor">@color/primaryTextColor</item>
 
-    <item name="colorButtonNormal">@color/secondaryColor</item>
+    <item name="android:textColorSecondary">@color/primaryTextColor</item>
 
-    <item name="android:buttonBarButtonStyle">@color/secondaryColor</item>
+  </style>
 
-</style>
+  <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+    <item name="android:fontFamily">sans-serif-light</item>
+  </style>
 
-
-    <style parent="Theme.AppCompat.Light.NoActionBar" name="StrikeHApp">
-
-    <!-- Customize your theme here. -->
-
-
-    <item name="android:textSize">@dimen/strikes_textSize</item>
-
-    <item name="android:textColor">@color/secondaryColor</item>
-
-    <item name="android:text">@string/strikesHeads</item>
-
-</style>
-
-
-    <style parent="Theme.AppCompat.Light.NoActionBar" name="StrikeTApp">
-
-    <!-- Customize your theme here. -->
-
-
-    <item name="android:textSize">@dimen/strikes_textSize</item>
-
-    <item name="android:textColor">@color/primaryTextColor</item>
-
-    <item name="android:text">@string/strikesTails</item>
-
-</style>
+  <style name="RobotoButtonStyle" parent="android:Widget.Holo.Button">
+    <item name="android:fontFamily">sans-serif-light</item>
+  </style>
 
 </resources>

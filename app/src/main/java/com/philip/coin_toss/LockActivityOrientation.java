@@ -14,7 +14,7 @@ import android.view.Surface;
 
 @SuppressWarnings("deprecation")
 @SuppressLint("NewApi")
-public class LockActivityOrientation{
+class LockActivityOrientation{
     public static void lockActivityOrientation(Activity activity) {
         Display display = activity.getWindowManager().getDefaultDisplay();
         int rotation = display.getRotation();
@@ -29,30 +29,36 @@ public class LockActivityOrientation{
             height = size.y;
             width = size.x;
         }
-        switch (rotation) {
-            case Surface.ROTATION_90:
-                if (width > height)
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-                else
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-                break;
-            case Surface.ROTATION_180:
-                if (height > width)
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-                else
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
-                break;
-            case Surface.ROTATION_270:
-                if (width > height)
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
-                else
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                break;
-            default :
-                if (height > width)
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-                else
-                    activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+      switch (rotation) {
+        case Surface.ROTATION_90:
+          if (width > height) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+          } else {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+          }
+          break;
+        case Surface.ROTATION_180:
+          if (height > width) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT);
+          } else {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+          }
+          break;
+        case Surface.ROTATION_270:
+          if (width > height) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
+          } else {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+          }
+          break;
+        default:
+          if (height > width) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+          } else {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+          }
+        case Surface.ROTATION_0:
+          break;
+      }
     }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="button_textSize">28sp</dimen>
-    <dimen name="scoreLabels_textSize">34sp</dimen>
-    <dimen name="scoreValues_textSize">24sp</dimen>
-    <dimen name="strikes_textSize">34sp</dimen>
+    <dimen name="highScoreLabel_textSize">18sp</dimen>
+    <dimen name="highScoreValue_textSize">22sp</dimen>
+    <dimen name="scoreLabel_textSize">38sp</dimen>
+    <dimen name="scoreValue_textSize">42sp</dimen>
 </resources>

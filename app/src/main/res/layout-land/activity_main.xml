@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="com.philip.coin_toss.MainActivity">
+
+
+  <RelativeLayout
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <FrameLayout
+      android:id="@+id/container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true">
+
+      <include
+        android:id="@+id/notelist"
+        layout="@layout/tails_view"/>
+
+      <include
+        android:id="@+id/notelist"
+        layout="@layout/heads_view"/>
+
+
+    </FrameLayout>
+
+    <RelativeLayout
+      android:id="@+id/mainContainer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <RelativeLayout
+        android:id="@+id/scores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+          android:id="@+id/sc"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/hsc"
+          android:orientation="horizontal"
+          android:layout_marginTop="5dp">
+
+          <TextView
+            android:id="@+id/scoreLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/score"
+            android:textSize="@dimen/scoreLabel_textSize"/>
+
+          <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/scoreLabel"
+            android:layout_toEndOf="@+id/scoreLabel"
+            android:text="0"
+            android:textSize="@dimen/scoreValue_textSize"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+          android:id="@+id/hsc"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dp"
+          android:layout_alignParentTop="true"
+          android:layout_alignParentStart="true"
+          android:orientation="horizontal">
+
+          <TextView
+            android:id="@+id/highScoreLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/highScore"
+            android:textSize="@dimen/highScoreLabel_textSize"/>
+
+          <TextView
+            android:id="@+id/highScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:text="0"
+            android:textSize="@dimen/highScoreValue_textSize"/>
+        </LinearLayout>
+        <HorizontalScrollView
+          android:id="@+id/strikesScrollView"
+          android:layout_width="match_parent"
+          android:layout_marginLeft="56dp"
+          android:layout_marginRight="5dp"
+          android:layout_marginTop="-5dp"
+          android:layout_height="55dp"
+          android:layout_alignParentEnd="true"
+          android:layout_toEndOf="@id/hsc"
+          android:orientation="horizontal"
+          android:fillViewport="true"
+          android:scrollbars="none"
+          android:measureAllChildren="false"
+          android:background="@drawable/borderscroll"
+          >
+          <LinearLayout
+            android:id="@+id/strikesLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+          </LinearLayout>
+        </HorizontalScrollView>
+
+      </RelativeLayout>
+      <LinearLayout
+        android:id="@+id/muteLayout"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scores"
+        android:layout_alignParentEnd="true">
+        <Button
+          android:id="@+id/muteButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          style="?android:attr/buttonBarButtonStyle"
+          android:background="@drawable/volume"
+          android:scaleX="0.4"
+          android:scaleY="0.5"
+          android:onClick="mute"/>
+      </LinearLayout>
+
+      <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:orientation="horizontal">
+
+        <Button
+          android:id="@+id/heads"
+          style="?android:attr/buttonBarButtonStyle"
+          android:layout_width="178dp"
+          android:layout_height="80dp"
+          android:layout_weight="1"
+          android:alpha="0.85"
+          android:background="@drawable/buttonshape"
+          android:onClick="update"
+          android:text="@string/heads"
+          android:textColor="@color/primaryTextColor"
+          android:textSize="@dimen/button_textSize"/>
+
+        <View
+          android:layout_width="16dp"
+          android:layout_height="88dp"
+          android:layout_weight="1"/>
+
+        <Button
+          android:id="@+id/tails"
+          style="?android:attr/buttonBarButtonStyle"
+          android:layout_width="168dp"
+          android:layout_height="80dp"
+          android:layout_weight="1"
+          android:alpha="0.85"
+          android:background="@drawable/buttonshape"
+          android:onClick="update"
+          android:text="@string/tails"
+          android:textColor="@color/primaryTextColor"
+          android:textSize="@dimen/button_textSize"/>
+
+
+      </LinearLayout>
+
+    </RelativeLayout>
+
+
+  </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>
